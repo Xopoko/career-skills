@@ -1,0 +1,18 @@
+{
+  "schema": "career.claim_manifest.v1",
+  "artifact": {
+    "path": "artifacts/synthetic-resume.md",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "purpose": "Synthetic resume claim used only by the trust demo"
+  },
+  "claims": [
+    {
+      "id": "claim-synthetic-turnaround",
+      "text": "Reduced review turnaround from four days to two days for a fictional product release.",
+      "fact_ids": [],
+      "disposition": "supported",
+      "derivation": "No fact is linked, so this claim must not be treated as supported.",
+      "publish": true
+    }
+  ]
+}

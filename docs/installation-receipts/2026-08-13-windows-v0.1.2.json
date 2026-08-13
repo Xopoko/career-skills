@@ -1,0 +1,105 @@
+{
+  "schema": "career.installation_receipt.v1",
+  "recorded_at": "2026-08-13T17:39:16+02:00",
+  "release": {
+    "version": "0.1.2",
+    "commit": "42e77fbe5592f1953e6407784bba024e6956f2e7",
+    "tracked_files": 81
+  },
+  "environment": {
+    "operating_system": "Microsoft Windows 11 Pro",
+    "build": "26200",
+    "architecture": "x64",
+    "python": "3.11.9",
+    "git": "2.55.0.windows.2"
+  },
+  "integrity_method": "For each of the 81 files in git ls-tree -r at the release commit, git hash-object --path was compared with the release blob id. This normalizes host line-ending conversion while preserving Git object identity.",
+  "hosts": [
+    {
+      "host": "Codex",
+      "host_version": "0.147.0",
+      "discovery": {
+        "command": "codex plugin list --json",
+        "plugin_id": "career@local",
+        "version": "0.1.2",
+        "installed": true,
+        "enabled": true,
+        "source_commit_in_locator": "42e77fbe5592f1953e6407784bba024e6956f2e7"
+      },
+      "release_tree": {
+        "files_checked": 81,
+        "files_matching": 81
+      },
+      "package_validation": {
+        "valid": true,
+        "skills": 20,
+        "core_templates": 10,
+        "errors": 0,
+        "warnings": 0
+      },
+      "trigger_contract": {
+        "valid": true,
+        "skills": 20,
+        "errors": 0
+      },
+      "visibility_boundary": "Verified in the Codex plugin catalog as installed and enabled; no interactive agent run was performed for this receipt."
+    },
+    {
+      "host": "Claude Code",
+      "host_version": "2.1.175",
+      "discovery": {
+        "command": "claude plugin list --json",
+        "plugin_id": "career@career-skills",
+        "version": "0.1.2",
+        "scope": "user",
+        "enabled": true
+      },
+      "release_tree": {
+        "files_checked": 81,
+        "files_matching": 81
+      },
+      "package_validation": {
+        "valid": true,
+        "skills": 20,
+        "core_templates": 10,
+        "errors": 0,
+        "warnings": 0
+      },
+      "trigger_contract": {
+        "valid": true,
+        "skills": 20,
+        "errors": 0
+      },
+      "visibility_boundary": "Verified in the Claude Code plugin list as enabled; no interactive agent run was performed for this receipt."
+    },
+    {
+      "host": "Cursor",
+      "host_version": null,
+      "discovery": {
+        "command": "filesystem and Git inspection of ~/.cursor/plugins/local/career",
+        "plugin_id": "career",
+        "version": "0.1.2",
+        "git_head": "42e77fbe5592f1953e6407784bba024e6956f2e7",
+        "git_status_clean": true
+      },
+      "release_tree": {
+        "files_checked": 81,
+        "files_matching": 81
+      },
+      "package_validation": {
+        "valid": true,
+        "skills": 20,
+        "core_templates": 10,
+        "errors": 0,
+        "warnings": 0
+      },
+      "trigger_contract": {
+        "valid": true,
+        "skills": 20,
+        "errors": 0
+      },
+      "visibility_boundary": "The cursor command was not available in PATH. The installed checkout, manifest, release commit, package validator, and trigger contract were verified, but visibility in the Cursor UI was not independently observed."
+    }
+  ],
+  "mutations_performed": false
+}

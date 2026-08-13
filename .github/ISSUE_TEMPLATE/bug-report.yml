@@ -1,0 +1,73 @@
+name: Bug report
+description: Report a reproducible Career Skills defect with a minimal synthetic example.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Career Skills.
+
+        **Privacy boundary:** do not paste a resume or CV, recruiter or employer messages, email addresses, phone numbers, credentials, active company or application details, requisition IDs, interview records, or other personal data. Replace them with the smallest fictional example that reproduces the defect.
+  - type: input
+    id: skill
+    attributes:
+      label: Skill or workflow
+      description: Name the skill, command, validator, or workflow involved.
+      placeholder: career:application-tailoring or validate-claims
+    validations:
+      required: true
+  - type: dropdown
+    id: host
+    attributes:
+      label: Host
+      options:
+        - Codex
+        - Claude Code
+        - Cursor
+        - Another Agent Skills host
+        - Direct script execution
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Use a release number or full commit hash when available.
+      placeholder: 0.1.2
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic reproduction
+      description: Give ordered steps and a minimal fictional input. Redact local paths and account identifiers from logs.
+      placeholder: |
+        1. Run ...
+        2. Use this fictional record ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include only the smallest redacted diagnostic needed to understand the defect.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Public-data check
+      options:
+        - label: I used only fictional or public-safe data and removed resumes, messages, private application details, credentials, and personal identifiers.
+          required: true
+        - label: I searched the report for local absolute paths and secrets before submitting it.
+          required: true

@@ -1,0 +1,55 @@
+name: Skill or workflow request
+description: Propose a focused career capability with clear trigger and safety boundaries.
+title: "[Request]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A useful request explains the decision or workflow the agent cannot handle today.
+
+        **Privacy boundary:** do not paste a resume or CV, recruiter or employer messages, email addresses, phone numbers, credentials, active company or application details, requisition IDs, interview records, or other personal data. Use a fictional scenario and public sources only.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Describe the user decision or workflow, not a broad promise.
+      placeholder: A user needs to ...
+    validations:
+      required: true
+  - type: textarea
+    id: trigger
+    attributes:
+      label: When should the skill trigger?
+      description: Give one or more fictional user requests that should route here.
+    validations:
+      required: true
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: When should it not trigger?
+      description: Name adjacent workflows or unsafe actions that belong elsewhere.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: State the artifact, decision, validation, or handoff the skill should produce.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence or prior art
+      description: Optional links to public documentation, research, or repositories. Do not link private documents.
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Safety and privacy boundaries
+      options:
+        - label: This request uses only fictional or public-safe examples and contains no resume, private message, active application detail, credential, or personal identifier.
+          required: true
+        - label: Any proposed external write, application, message, or profile change must remain exact-preview and approval gated.
+          required: true

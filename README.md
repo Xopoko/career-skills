@@ -147,6 +147,34 @@ These commands do not browse, authenticate, send, book, submit, accept, pay, or
 delete. Any provider integration remains separate and must satisfy the
 [provider contract](references/provider-contract.md).
 
+## See the Trust Boundary
+
+A polished sentence is not evidence, and an approved application is not a
+blank cheque for a changed payload. The synthetic, network-free trust demo
+exercises the `0.1.2` contracts with fictional data. It is post-release demo
+tooling on `main`; it does not redefine the immutable `0.1.2` release artifact
+or its installation receipt.
+
+```bash
+python scripts/run_trust_demo.py --output tmp/trust-demo-receipt.json
+```
+
+The receipt proves three concrete outcomes: an unsupported public claim is
+rejected, the same bounded claim passes after its evidence chain is present,
+and a one-byte payload change no longer matches the reviewed approval hash.
+Read the [walkthrough and fixtures](examples/trust-demo/README.md), the exact
+[synthetic claim card](examples/trust-demo/claim-manifest-card.md), and the
+[ambiguous application-state card](examples/trust-demo/application-state-card.md).
+No resume, recruiter message, employer record, or live application data is
+used.
+
+Release `0.1.2` is backed by 69 unit tests, 200 public routing cases, and a
+Windows/Linux CI matrix at commit
+[`42e77fbe`](https://github.com/Xopoko/career-skills/commit/42e77fbe5592f1953e6407784bba024e6956f2e7).
+The [host receipt](docs/installation-receipts/2026-08-13-windows-v0.1.2.json)
+records what was actually observed in Codex, Claude Code, and Cursor; its
+visibility limits are explicit.
+
 ## Development
 
 The package is network-free at validation time and tested on Windows and Linux
