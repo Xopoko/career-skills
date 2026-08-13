@@ -1,0 +1,40 @@
+{
+  "schema": "career.opportunity_analysis.v1",
+  "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+  "hard_constraints": [
+    {
+      "id": "location",
+      "label": "Eligible work location",
+      "assessment": "pass",
+      "evidence_ids": [
+        "evidence-22222222-2222-4222-8222-222222222222"
+      ]
+    },
+    {
+      "id": "authorization",
+      "label": "Work authorization",
+      "assessment": "unknown",
+      "evidence_ids": []
+    }
+  ],
+  "criteria": [
+    {
+      "id": "delivery",
+      "label": "End-to-end delivery",
+      "importance": "required",
+      "weight": 5,
+      "assessment": "met",
+      "evidence_ids": [
+        "evidence-22222222-2222-4222-8222-222222222222"
+      ]
+    },
+    {
+      "id": "domain",
+      "label": "Domain-specific experience",
+      "importance": "preferred",
+      "weight": 2,
+      "assessment": "unknown",
+      "evidence_ids": []
+    }
+  ]
+}

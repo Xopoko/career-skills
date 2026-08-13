@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.env.*
+career-data/
+tmp/
+dist/
+build/
+.locks/

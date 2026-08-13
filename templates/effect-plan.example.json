@@ -1,0 +1,39 @@
+{
+  "schema": "career.effect_plan.v1",
+  "plan_id": "plan-88888888-8888-4888-8888-888888888888",
+  "revision_id": "plan-revision-99999999-9999-4999-8999-999999999999",
+  "supersedes_revision_id": null,
+  "created_at": "2026-08-13T10:04:00Z",
+  "recorded_at": "2026-08-13T10:04:00Z",
+  "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+  "effect": {
+    "action": "send_message",
+    "provider_id": "example-mail",
+    "account_id": "account-reviewed-by-user",
+    "target": {
+      "address": "recipient@example.org"
+    },
+    "payload": {
+      "subject": "Application follow-up",
+      "body": "Reviewed message body."
+    },
+    "attachments": [],
+    "idempotency_key": "career-follow-up-example-001",
+    "effect_class": "communication",
+    "data_disclosure": [
+      {
+        "field": "email address",
+        "purpose": "deliver the follow-up",
+        "recipient": "recipient@example.org",
+        "sensitivity": "personal"
+      }
+    ],
+    "expected_remote_state": null
+  },
+  "expires_at": "2026-08-14T10:04:00Z",
+  "approval": {
+    "state": "pending"
+  },
+  "approval_hash": "cbc9cf5cb7c9465e528d79204b29192b8e2aec091f1d17f3d3917e05d300ccd6",
+  "display_preview": "Send the reviewed follow-up to recipient@example.org from the selected account."
+}

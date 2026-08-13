@@ -1,0 +1,32 @@
+{
+  "schema": "career.profile.v1",
+  "subject_id": "subject-11111111-1111-4111-8111-111111111111",
+  "created_at": "2026-08-13T10:00:00Z",
+  "goals": [
+    {
+      "outcome": "Find a sustainable role with clear delivery ownership",
+      "horizon": "next_role",
+      "status": "exploring"
+    }
+  ],
+  "preferences": {
+    "role_families": [],
+    "workplace": [],
+    "locations": [],
+    "timezones": [],
+    "employment_types": []
+  },
+  "constraints": {
+    "hard": [],
+    "soft": [],
+    "unknown": []
+  },
+  "retention": {
+    "default_days": 90,
+    "keep_evidence_until_review": true,
+    "review_on": null
+  },
+  "sharing": {
+    "default": "local_only"
+  }
+}

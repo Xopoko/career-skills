@@ -1,0 +1,18 @@
+{
+  "schema": "career.action.v1",
+  "action_id": "action-12121212-1212-4212-8212-121212121212",
+  "revision_id": "action-revision-13131313-1313-4313-8313-131313131313",
+  "supersedes_revision_id": null,
+  "recorded_at": "2026-08-13T10:06:00Z",
+  "due_at": "2026-08-15T10:06:00Z",
+  "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+  "kind": "follow_up",
+  "state": "pending",
+  "priority": "normal",
+  "basis": "The acknowledged application has a user-approved follow-up cadence.",
+  "evidence_ids": [
+    "evidence-22222222-2222-4222-8222-222222222222"
+  ],
+  "depends_on_action_ids": [],
+  "resolution": null
+}

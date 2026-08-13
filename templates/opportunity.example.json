@@ -1,0 +1,60 @@
+{
+  "schema": "career.opportunity.v1",
+  "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+  "revision_id": "opportunity-revision-66666666-6666-4666-8666-666666666666",
+  "supersedes_revision_id": null,
+  "recorded_at": "2026-08-13T10:02:00Z",
+  "title": "Senior Software Engineer",
+  "organization": {
+    "name": "Example Organization"
+  },
+  "origins": [
+    {
+      "provider_id": "manual-import",
+      "external_id": "role-42",
+      "url": "https://example.org/careers/role-42",
+      "retrieved_at": "2026-08-13T09:59:00Z",
+      "evidence_id": "evidence-22222222-2222-4222-8222-222222222222",
+      "adapter_version": "manual-v1"
+    }
+  ],
+  "evidence_ids": [
+    "evidence-22222222-2222-4222-8222-222222222222"
+  ],
+  "normalized": {
+    "employment_type": "full_time",
+    "workplace": "remote",
+    "seniority": "senior",
+    "work_locations": [
+      "Remote"
+    ],
+    "eligible_applicant_locations": [
+      "European Union"
+    ],
+    "authorization_text": "Applicants must already be authorized to work in an eligible location; sponsorship is not stated.",
+    "schedule": {
+      "timezone_requirements": [
+        "Europe-compatible overlap"
+      ],
+      "working_hours": null,
+      "travel": "Not stated",
+      "on_call": "Not stated"
+    },
+    "compensation": {
+      "raw": "EUR 90000-110000 per year",
+      "currency": "EUR",
+      "minimum": "90000",
+      "maximum": "110000",
+      "period": "year"
+    }
+  },
+  "application": {
+    "canonical_url": "https://example.org/careers/role-42",
+    "published_at": null,
+    "modified_at": null,
+    "expires_at": null,
+    "last_verified_at": "2026-08-13T09:59:00Z",
+    "source_description_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "normalization_warnings": []
+}

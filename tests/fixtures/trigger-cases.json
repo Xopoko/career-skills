@@ -1,0 +1,225 @@
+{
+  "schema": "career.trigger_cases.v1",
+  "skills": [
+    {
+      "name": "career",
+      "should_trigger": [
+        "Help me manage my whole job search and decide what to do next.",
+        "I lost my role and need an end-to-end career plan."
+      ],
+      "should_not_trigger": [
+        "Fix this Python unit test.",
+        "Only proofread this already final paragraph."
+      ]
+    },
+    {
+      "name": "application-campaign",
+      "should_trigger": [
+        "Build a reviewed campaign with ten primary applications and two reserves.",
+        "Reconcile attempted, blocked, replaced, and acknowledged submissions in this batch."
+      ],
+      "should_not_trigger": [
+        "Tailor one resume for one posting.",
+        "Send every open application without review."
+      ]
+    },
+    {
+      "name": "career-inbox",
+      "should_trigger": [
+        "Triage this bounded mailbox window for receipts, assessments, recruiter replies, and interview proposals.",
+        "Match these application emails to opportunities without touching unrelated mail."
+      ],
+      "should_not_trigger": [
+        "Draft a cold networking message.",
+        "Archive my whole inbox."
+      ]
+    },
+    {
+      "name": "career-operations",
+      "should_trigger": [
+        "Recover my current job-search state and give me today's evidence-backed queue.",
+        "Audit campaign, inbox, artifact, follow-up, and funnel projection drift."
+      ],
+      "should_not_trigger": [
+        "Research one employer.",
+        "Rewrite this resume bullet."
+      ]
+    },
+    {
+      "name": "career-data-governance",
+      "should_trigger": [
+        "Inventory my career data and prepare a minimized export with disclosures.",
+        "Review retention and plan an exact user-approved deletion with proof."
+      ],
+      "should_not_trigger": [
+        "Delete all evidence automatically.",
+        "Find new jobs today."
+      ]
+    },
+    {
+      "name": "career-context",
+      "should_trigger": [
+        "Import my work history and build a verified achievement bank.",
+        "Correct the end date in my career source of truth."
+      ],
+      "should_not_trigger": [
+        "Find current remote openings.",
+        "Submit this application form."
+      ]
+    },
+    {
+      "name": "career-direction",
+      "should_trigger": [
+        "I do not know which role family fits my evidence and constraints.",
+        "Map a realistic pivot from operations into product work."
+      ],
+      "should_not_trigger": [
+        "Tailor my resume to this specific posting.",
+        "Book the proposed interview slot."
+      ]
+    },
+    {
+      "name": "career-market-research",
+      "should_trigger": [
+        "Research current pay ranges for this role in Poland.",
+        "What does this employer and role market look like right now?"
+      ],
+      "should_not_trigger": [
+        "Record that I submitted yesterday.",
+        "Practice my behavioral answer."
+      ]
+    },
+    {
+      "name": "opportunity-search",
+      "should_trigger": [
+        "Find fresh EU-remote senior engineering openings under my filters.",
+        "Run my saved search and deduplicate the results."
+      ],
+      "should_not_trigger": [
+        "Should I apply to this one pasted posting?",
+        "Write a counter for this offer."
+      ]
+    },
+    {
+      "name": "opportunity-analysis",
+      "should_trigger": [
+        "Analyze this job description against my verified evidence.",
+        "Should I apply, clarify, defer, or skip this opening?"
+      ],
+      "should_not_trigger": [
+        "Search five job boards for new openings.",
+        "Build a general portfolio case study."
+      ]
+    },
+    {
+      "name": "career-materials",
+      "should_trigger": [
+        "Create my baseline senior engineer resume from verified facts.",
+        "Turn this project evidence into a public-safe portfolio case study."
+      ],
+      "should_not_trigger": [
+        "Fill the fields on this live application.",
+        "Research current salary data."
+      ]
+    },
+    {
+      "name": "application-tailoring",
+      "should_trigger": [
+        "Tailor my resume and cover letter for this exact role.",
+        "Draft a truthful 200-word answer to this application question."
+      ],
+      "should_not_trigger": [
+        "Send the application now.",
+        "Help me choose a career direction."
+      ]
+    },
+    {
+      "name": "application-assistance",
+      "should_trigger": [
+        "Inspect this application form and map verified answers.",
+        "Fill the approved fields but stop before submission."
+      ],
+      "should_not_trigger": [
+        "Write a general resume.",
+        "Find people who could introduce me."
+      ]
+    },
+    {
+      "name": "career-networking",
+      "should_trigger": [
+        "Find a genuine warm path and draft a referral request.",
+        "Draft a respectful informational interview message."
+      ],
+      "should_not_trigger": [
+        "Confirm which calendar slot was accepted.",
+        "Compare these written offers."
+      ]
+    },
+    {
+      "name": "recruiter-coordination",
+      "should_trigger": [
+        "Read this recruiter thread and tell me whether an interview is confirmed.",
+        "Reconcile the proposed times with my actual calendar."
+      ],
+      "should_not_trigger": [
+        "Generate interview questions for tomorrow.",
+        "Find current job postings."
+      ]
+    },
+    {
+      "name": "interview-preparation",
+      "should_trigger": [
+        "Prepare evidence-backed stories for my hiring lead interview.",
+        "Run a structured mock interview and help me retry weak answers."
+      ],
+      "should_not_trigger": [
+        "Accept this written offer.",
+        "Import my entire work archive."
+      ]
+    },
+    {
+      "name": "offer-negotiation",
+      "should_trigger": [
+        "Normalize and compare these two written offers.",
+        "Assess whether negotiation is appropriate and draft a counter."
+      ],
+      "should_not_trigger": [
+        "Search for open roles.",
+        "Update my project story bank."
+      ]
+    },
+    {
+      "name": "career-pipeline",
+      "should_trigger": [
+        "Record the confirmed interview without losing the proposed-slot history.",
+        "Analyze my stage conversions and repeated gaps this month."
+      ],
+      "should_not_trigger": [
+        "Choose between three new career paths.",
+        "Research this employer's current strategy."
+      ]
+    },
+    {
+      "name": "career-development",
+      "should_trigger": [
+        "Turn my repeated proof gap into a 60-day development experiment.",
+        "Plan a measurable path toward an internal promotion."
+      ],
+      "should_not_trigger": [
+        "Submit this completed form.",
+        "Debrief yesterday's interview."
+      ]
+    },
+    {
+      "name": "career-source-adapter",
+      "should_trigger": [
+        "Vet this job API as a read-only provider for the career plugin.",
+        "Design a safe adapter contract for recruiter mail and calendar data."
+      ],
+      "should_not_trigger": [
+        "Use the already approved provider to search.",
+        "Write a cover letter for this role."
+      ]
+    }
+  ]
+}

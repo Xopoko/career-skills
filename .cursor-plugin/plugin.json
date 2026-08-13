@@ -1,0 +1,13 @@
+{
+  "name": "career",
+  "displayName": "Career Skills",
+  "version": "0.1.0",
+  "description": "Evidence-first career skills for direction, job search, applications, interviews, offers, and durable pipeline learning.",
+  "author": {
+    "name": "Xopoko",
+    "url": "https://github.com/Xopoko"
+  },
+  "repository": "https://github.com/Xopoko/career-skills",
+  "license": "MIT",
+  "logo": "assets/icon.png"
+}

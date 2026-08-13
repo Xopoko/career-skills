@@ -1,0 +1,62 @@
+{
+  "name": "career",
+  "version": "0.1.0",
+  "description": "Evidence-first career support for direction, research, job discovery, materials, applications and campaigns, inbox and recruiter coordination, interviews, offers, operations, development, and data governance.",
+  "author": {
+    "name": "Xopoko",
+    "email": "xopoko@users.noreply.github.com",
+    "url": "https://github.com/Xopoko"
+  },
+  "homepage": "https://github.com/Xopoko/career-skills",
+  "repository": "https://github.com/Xopoko/career-skills",
+  "license": "MIT",
+  "keywords": [
+    "career",
+    "job-search",
+    "resume",
+    "portfolio",
+    "applications",
+    "networking",
+    "interviews",
+    "offers",
+    "career-development",
+    "evidence",
+    "pipeline"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Career Skills",
+    "shortDescription": "Evidence-first support across the career lifecycle.",
+    "longDescription": "Build a durable career context, choose direction, research roles and labor markets, discover and evaluate opportunities, produce traceable materials, assist with applications, coordinate recruiter conversations, prepare for interviews, compare offers, plan development, and learn from an event-sourced pipeline. Claims remain linked to evidence, live facts are dated, uncertainty stays visible, and external actions require a reviewed plan plus explicit authority at the final boundary.",
+    "developerName": "Xopoko",
+    "category": "Productivity",
+    "capabilities": [
+      "Career context and evidence capture",
+      "Role-family exploration and transition planning",
+      "Dated labor-market, role, employer, and compensation research",
+      "Provider-neutral opportunity discovery and normalization",
+      "Transparent fit, constraint, risk, and gap analysis",
+      "Evidence-backed resumes, profiles, portfolios, and case studies",
+      "Role-specific application tailoring and claim validation",
+      "Approval-gated application form assistance",
+      "Reviewed application campaigns with reserves and receipt reconciliation",
+      "Bounded career inbox triage and opportunity matching",
+      "Networking, recruiter communication, and scheduling drafts",
+      "Behavioral and role-specific interview preparation",
+      "Offer normalization, comparison, and negotiation planning",
+      "Event-sourced pipeline tracking and conversion learning",
+      "Deterministic daily operations briefs and ever-reached funnel metrics",
+      "Career-development experiments and skill-gap plans",
+      "Career-data inventory, retention, export, and deletion planning",
+      "Vetted source-adapter contracts with explicit effect classes"
+    ],
+    "defaultPrompt": [
+      "Help me decide the next concrete step in my career using only supported facts and visible assumptions.",
+      "Set up a private local career workspace, import my evidence, and show me what still needs confirmation.",
+      "Analyze this opportunity, tailor the requested materials, and stop before any external action."
+    ],
+    "brandColor": "#123B4A",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  }
+}

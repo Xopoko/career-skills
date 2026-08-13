@@ -1,0 +1,46 @@
+{
+  "schema": "career.provider_descriptor.v1",
+  "provider_id": "example-jobs",
+  "adapter_version": "0.1.0",
+  "source_revision": "full-immutable-revision-required",
+  "license": {
+    "code": "review-required",
+    "data": "unknown",
+    "service_terms": "review-required"
+  },
+  "authentication": {
+    "mode": "none",
+    "secret_boundary": "not_applicable"
+  },
+  "network_destinations": [
+    "https://example.org"
+  ],
+  "operations": [
+    {
+      "name": "search",
+      "effect_class": "network_read",
+      "data_sent": [
+        "query",
+        "filters"
+      ],
+      "data_returned": [
+        "raw_job_records"
+      ]
+    }
+  ],
+  "unsupported_filters": [],
+  "freshness": {
+    "field": "retrieved_at",
+    "timestamp_unit": "rfc3339"
+  },
+  "pagination": {
+    "model": "document-required",
+    "partial_results_visible": true
+  },
+  "rate_limits": "unknown",
+  "cost": "none_observed",
+  "attribution": "review-required",
+  "cache_and_retention": "local policy required",
+  "retry_and_idempotency": "reads only in this example",
+  "activation": "disabled"
+}

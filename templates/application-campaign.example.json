@@ -1,0 +1,99 @@
+{
+  "schema": "career.application_campaign.v1",
+  "campaign_id": "campaign-cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+  "revision_id": "campaign-revision-dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  "supersedes_revision_id": null,
+  "recorded_at": "2026-08-13T10:05:00Z",
+  "name": "Reviewed application cohort",
+  "owner": {
+    "kind": "user",
+    "id": "workspace-owner"
+  },
+  "purpose": "Submit one independently reviewed application without weakening evidence or approval gates.",
+  "deadline_at": "2026-08-20T10:05:00Z",
+  "maximum_attempts": 1,
+  "source_policy": {
+    "allowed_provider_ids": [
+      "manual-import"
+    ],
+    "allowed_domains": [
+      "example.org"
+    ],
+    "eligibility_rule": "Only current roles that pass every hard search-policy constraint may enter the roster."
+  },
+  "allowed_account_ids": [
+    "account-reviewed-by-user"
+  ],
+  "review_cadence": "after_each_attempt",
+  "stop_conditions": [
+    "quota_reached",
+    "workspace_tail_changed",
+    "account_uncertain",
+    "truth_missing",
+    "artifact_qa_failed",
+    "duplicate_risk",
+    "reconciliation_failed",
+    "deadline_reached",
+    "attempt_limit_reached"
+  ],
+  "workspace_tail": {
+    "captured_at": "2026-08-13T10:05:00Z",
+    "profile_subject_id": "subject-11111111-1111-4111-8111-111111111111",
+    "search_policy_subject_id": "subject-11111111-1111-4111-8111-111111111111",
+    "opportunity_revision_ids": [
+      "opportunity-revision-66666666-6666-4666-8666-666666666666"
+    ],
+    "pipeline_tail_event_ids": [
+      "event-77777777-7777-4777-8777-777777777777"
+    ],
+    "artifact_revision_ids": [
+      "artifact-revision-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+    ]
+  },
+  "state": "draft",
+  "target_count": 1,
+  "roster_count": 1,
+  "reserve_count": 0,
+  "items": [
+    {
+      "item_id": "campaign-item-eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+      "slot_id": "primary-01",
+      "cohort_role": "primary",
+      "replacement_of": null,
+      "activation_reason": null,
+      "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+      "opportunity_revision_id": "opportunity-revision-66666666-6666-4666-8666-666666666666",
+      "canonical_url": "https://example.org/careers/role-42",
+      "organization": "Example Organization",
+      "title": "Senior Software Engineer",
+      "freshness_evidence_id": "evidence-22222222-2222-4222-8222-222222222222",
+      "eligibility": "eligible",
+      "fit_decision": "pursue",
+      "priority": 1,
+      "dependency_action_ids": [],
+      "artifact_revision_ids": [
+        "artifact-revision-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+      ],
+      "plan_id": null,
+      "plan_revision_id": null,
+      "approval_hash": null,
+      "state": "queued",
+      "attempted_at": null,
+      "effect_event_id": null,
+      "failure_reason": null
+    }
+  ],
+  "counts": {
+    "queued": 1,
+    "ready": 0,
+    "approved": 0,
+    "attempted": 0,
+    "succeeded": 0,
+    "failed": 0,
+    "ambiguous": 0,
+    "denied": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "blocked": 0
+  }
+}

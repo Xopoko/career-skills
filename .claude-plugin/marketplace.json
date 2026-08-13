@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/marketplace/marketplace.schema.json",
+  "name": "career-skills",
+  "version": "0.1.0",
+  "owner": {
+    "name": "Xopoko",
+    "email": "xopoko@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Evidence-first Agent Skills for career direction, job search, applications, interviews, offers, and durable pipeline learning."
+  },
+  "plugins": [
+    {
+      "name": "career",
+      "description": "Evidence-first career support for direction, research, job discovery, materials, applications and campaigns, inbox and recruiter coordination, interviews, offers, operations, development, and data governance.",
+      "repository": "https://github.com/Xopoko/career-skills",
+      "version": "0.1.0",
+      "author": {
+        "name": "Xopoko",
+        "email": "xopoko@users.noreply.github.com",
+        "url": "https://github.com/Xopoko"
+      },
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "career",
+        "job-search",
+        "resume",
+        "applications",
+        "interviews",
+        "offers",
+        "agent-skills"
+      ],
+      "source": "./"
+    }
+  ]
+}

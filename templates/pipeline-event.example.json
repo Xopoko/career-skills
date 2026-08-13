@@ -1,0 +1,19 @@
+{
+  "schema": "career.pipeline_event.v1",
+  "id": "event-77777777-7777-4777-8777-777777777777",
+  "opportunity_id": "opportunity-55555555-5555-4555-8555-555555555555",
+  "previous_event_id": null,
+  "recorded_at": "2026-08-13T10:03:00Z",
+  "effective_at": "2026-08-13T10:03:00Z",
+  "actor": {
+    "kind": "user"
+  },
+  "type": "discovered",
+  "evidence_ids": [
+    "evidence-22222222-2222-4222-8222-222222222222"
+  ],
+  "status_before": null,
+  "status_after": "discovered",
+  "outcome": null,
+  "note": "Imported from a source reviewed by the user."
+}

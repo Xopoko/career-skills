@@ -1,0 +1,5 @@
+interface:
+  display_name: "Career Skills"
+  short_description: "Evidence-first career and job-search workflows"
+  default_prompt: "Use Career Skills to complete the next career step with supported facts, visible uncertainty, and approval-gated external actions."
+  brand_color: "#123B4A"

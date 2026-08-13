@@ -1,0 +1,26 @@
+{
+  "name": "career",
+  "version": "0.1.0",
+  "description": "Evidence-first career support for direction, research, job discovery, materials, applications and campaigns, inbox and recruiter coordination, interviews, offers, operations, development, and data governance.",
+  "author": {
+    "name": "Xopoko",
+    "email": "xopoko@users.noreply.github.com",
+    "url": "https://github.com/Xopoko"
+  },
+  "homepage": "https://github.com/Xopoko/career-skills",
+  "repository": "https://github.com/Xopoko/career-skills",
+  "license": "MIT",
+  "keywords": [
+    "career",
+    "job-search",
+    "resume",
+    "portfolio",
+    "applications",
+    "networking",
+    "interviews",
+    "offers",
+    "career-development",
+    "evidence",
+    "pipeline"
+  ]
+}

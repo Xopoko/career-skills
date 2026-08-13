@@ -1,0 +1,22 @@
+{
+  "name": "career-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Evidence-first Agent Skills for career decisions and job search.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xopoko/career-skills.git"
+  },
+  "license": "MIT",
+  "files": [
+    ".claude-plugin",
+    ".codex-plugin",
+    ".cursor-plugin",
+    "agents",
+    "assets",
+    "references",
+    "scripts",
+    "skills",
+    "templates"
+  ]
+}

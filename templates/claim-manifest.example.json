@@ -1,0 +1,20 @@
+{
+  "schema": "career.claim_manifest.v1",
+  "artifact": {
+    "path": "artifacts/resume-example.md",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "purpose": "Illustrative role-specific resume"
+  },
+  "claims": [
+    {
+      "id": "claim-1",
+      "text": "Led a bounded delivery effort and released the agreed scope.",
+      "fact_ids": [
+        "fact-33333333-3333-4333-8333-333333333333"
+      ],
+      "disposition": "supported",
+      "derivation": "Combined the supported action and result without adding a metric.",
+      "publish": true
+    }
+  ]
+}
