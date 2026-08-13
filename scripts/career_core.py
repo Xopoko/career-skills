@@ -4098,12 +4098,17 @@ def cmd_check_triggers(args: argparse.Namespace) -> int:
         seen.add(name)
         if not (plugin_root / "skills" / name / "SKILL.md").is_file():
             errors.append(f"missing skill entrypoint: {name}")
-        for key in ("should_trigger", "should_not_trigger"):
+        required_prompt_counts = {"should_trigger": 6, "should_not_trigger": 4}
+        for key, minimum_count in required_prompt_counts.items():
             values = case.get(key)
-            if not isinstance(values, list) or len(values) < 2 or not all(
+            if not isinstance(values, list) or len(values) < minimum_count or not all(
                 isinstance(item, str) and item.strip() for item in values
             ):
-                errors.append(f"{name}.{key} needs at least two nonempty strings")
+                errors.append(
+                    f"{name}.{key} needs at least {minimum_count} nonempty strings"
+                )
+            elif len(set(values)) != len(values):
+                errors.append(f"{name}.{key} contains duplicate prompts")
     actual = {path.parent.name for path in (plugin_root / "skills").glob("*/SKILL.md")}
     if seen != actual:
         errors.append(f"fixture skills differ from entrypoints: fixture={sorted(seen)} actual={sorted(actual)}")

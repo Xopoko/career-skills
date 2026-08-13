@@ -1,6 +1,6 @@
 ---
 name: career-inbox
-description: Career inbox reconciliation reads bounded accounts and queries, classifies job-search communications, maps candidates to opportunities, and gates exact message mutations. Excludes general mail cleanup and recruiter prose drafting.
+description: Career inbox reconciliation reads bounded accounts and queries, classifies job-search messages, maps them to opportunities, and gates exact mail mutations. Excludes general mailbox cleanup and recruiter reply drafting.
 ---
 
 # Career Inbox

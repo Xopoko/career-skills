@@ -29,6 +29,28 @@ SECRET_PATTERNS = (
     re.compile(r"\bgh[opsu]_[A-Za-z0-9]{20,}\b"),
     re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
 )
+SKILL_FRONTMATTER_KEYS = {"name", "description"}
+MAX_SKILL_DESCRIPTION_CHARS = 240
+SKILL_DESCRIPTION_PREFIX_CHARS = 40
+GENERIC_SKILL_DESCRIPTION_LEADS = (
+    "use when",
+    "use for",
+    "use this",
+    "use whenever",
+    "help with",
+    "agent skills for",
+    "this skill",
+)
+FALLBACK_EXCLUDED_PARTS = {
+    ".git",
+    ".locks",
+    ".pytest_cache",
+    "__pycache__",
+    "build",
+    "career-data",
+    "dist",
+    "tmp",
+}
 
 
 def read_json(path: Path) -> dict:
@@ -40,21 +62,43 @@ def read_json(path: Path) -> dict:
 
 def frontmatter(path: Path) -> dict[str, str]:
     text = path.read_text(encoding="utf-8")
-    if not text.startswith("---\n"):
+    lines = text.splitlines()
+    if not lines or lines[0] != "---":
         raise ValueError("missing YAML frontmatter")
     try:
-        block = text.split("---\n", 2)[1]
-    except IndexError as exc:
+        closing_index = lines.index("---", 1)
+    except ValueError as exc:
         raise ValueError("unterminated YAML frontmatter") from exc
     result: dict[str, str] = {}
-    for line in block.splitlines():
+    for line in lines[1:closing_index]:
         if not line.strip():
             continue
         key, separator, raw = line.partition(":")
         if not separator:
             raise ValueError(f"invalid frontmatter line: {line}")
-        result[key.strip()] = raw.strip().strip('"')
+        key = key.strip()
+        if key in result:
+            raise ValueError(f"duplicate frontmatter key: {key}")
+        raw = raw.strip()
+        if raw.startswith('"') and raw.endswith('"'):
+            try:
+                value = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"invalid quoted frontmatter value for {key}") from exc
+        else:
+            if raw.startswith(('"', "'")) or raw.endswith(('"', "'")):
+                raise ValueError(f"unterminated quoted frontmatter value for {key}")
+            if ": " in raw:
+                raise ValueError(
+                    f"plain frontmatter value for {key} contains ': '; quote or rewrite it"
+                )
+            value = raw
+        result[key] = value
     return result
+
+
+def normalized_description(value: str) -> str:
+    return re.sub(r"\s+", " ", value.strip()).casefold()
 
 
 def tracked_files() -> list[Path]:
@@ -65,7 +109,13 @@ def tracked_files() -> list[Path]:
             stdout=subprocess.PIPE,
         )
     except (OSError, subprocess.CalledProcessError):
-        return [path.relative_to(ROOT) for path in ROOT.rglob("*") if path.is_file() and ".git" not in path.parts]
+        return [
+            path.relative_to(ROOT)
+            for path in ROOT.rglob("*")
+            if path.is_file()
+            and not (set(path.relative_to(ROOT).parts) & FALLBACK_EXCLUDED_PARTS)
+            and path.suffix != ".pyc"
+        ]
     tracked = [Path(item.decode("utf-8")) for item in result.stdout.split(b"\0") if item]
     if tracked:
         return tracked
@@ -136,6 +186,7 @@ def main() -> int:
 
     skill_paths = sorted((ROOT / "skills").glob("*/SKILL.md"))
     skill_names: set[str] = set()
+    description_prefixes: dict[str, str] = {}
     for path in skill_paths:
         relative = path.relative_to(ROOT).as_posix()
         try:
@@ -143,12 +194,40 @@ def main() -> int:
         except (OSError, ValueError) as exc:
             errors.append(f"{relative}: {exc}")
             continue
+        unexpected_keys = sorted(set(metadata) - SKILL_FRONTMATTER_KEYS)
+        missing_keys = sorted(SKILL_FRONTMATTER_KEYS - set(metadata))
+        if unexpected_keys:
+            errors.append(f"{relative}: unsupported frontmatter keys: {unexpected_keys}")
+        if missing_keys:
+            errors.append(f"{relative}: missing frontmatter keys: {missing_keys}")
         name = metadata.get("name")
         description = metadata.get("description")
         if name != path.parent.name:
             errors.append(f"{relative}: frontmatter name must match directory")
-        if not description or len(description) > 1024:
-            errors.append(f"{relative}: description must contain 1-1024 characters")
+        if not description or len(description) > MAX_SKILL_DESCRIPTION_CHARS:
+            errors.append(
+                f"{relative}: description must contain 1-{MAX_SKILL_DESCRIPTION_CHARS} characters"
+            )
+        elif isinstance(description, str):
+            normalized = normalized_description(description)
+            generic_lead = next(
+                (lead for lead in GENERIC_SKILL_DESCRIPTION_LEADS if normalized.startswith(lead)),
+                None,
+            )
+            if generic_lead is not None:
+                errors.append(
+                    f"{relative}: description must lead with the owned career capability, "
+                    f"not generic wording '{generic_lead}'"
+                )
+            prefix = normalized[:SKILL_DESCRIPTION_PREFIX_CHARS]
+            prior = description_prefixes.get(prefix)
+            if prior is not None:
+                errors.append(
+                    f"{relative}: normalized first-{SKILL_DESCRIPTION_PREFIX_CHARS} description "
+                    f"characters collide with {prior}"
+                )
+            else:
+                description_prefixes[prefix] = relative
         if name in skill_names:
             errors.append(f"duplicate skill name: {name}")
         if isinstance(name, str):

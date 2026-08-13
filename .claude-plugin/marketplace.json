@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "career-skills",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "owner": {
     "name": "Xopoko",
     "email": "xopoko@users.noreply.github.com"
@@ -14,7 +14,7 @@
       "name": "career",
       "description": "Evidence-first career support for direction, research, job discovery, materials, applications and campaigns, inbox and recruiter coordination, interviews, offers, operations, development, and data governance.",
       "repository": "https://github.com/Xopoko/career-skills",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "Xopoko",
         "email": "xopoko@users.noreply.github.com",

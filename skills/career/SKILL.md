@@ -1,6 +1,6 @@
 ---
 name: career
-description: Career routing coordinates context, direction, research, opportunities, materials, applications, networking, recruiters, interviews, offers, development, and pipeline learning. Triggers on broad or multi-stage career requests.
+description: Career routing handles broad or multi-stage requests across context, direction, market, jobs, materials, applications, communication, interviews, offers, operations, development, governance, and sources. Focused tasks use the owning skill.
 ---
 
 # Career Router

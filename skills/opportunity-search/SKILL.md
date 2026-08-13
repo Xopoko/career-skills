@@ -1,6 +1,6 @@
 ---
 name: opportunity-search
-description: Fresh job-lead requests with an explicit or discoverable search policy, authorized sources, and hard filters. Not for deciding fit on one posting or submitting an application.
+description: Opportunity search finds, normalizes, filters, deduplicates, and ranks fresh job leads under an explicit or discoverable policy and authorized sources. Excludes fit decisions on one posting and application submission.
 ---
 
 # Opportunity Search

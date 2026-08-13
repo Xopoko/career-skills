@@ -1,6 +1,6 @@
 ---
 name: career-direction
-description: Role-family uncertainty, career pivots, and transferable-skill questions when the user needs target options rather than current vacancies.
+description: Career direction compares role families, pivots, and transferable evidence, then defines reversible experiments when the user needs target options. Excludes live-opening search and growth plans for an already chosen target.
 ---
 
 # Career Direction

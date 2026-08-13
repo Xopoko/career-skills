@@ -5,220 +5,340 @@
       "name": "career",
       "should_trigger": [
         "Help me manage my whole job search and decide what to do next.",
-        "I lost my role and need an end-to-end career plan."
+        "I lost my role and need an end-to-end career plan.",
+        "Coordinate my career direction, search, applications, interviews, and follow-ups as one workflow.",
+        "I need one system to connect my evidence, active opportunities, materials, and pipeline decisions.",
+        "Help me restart my search from current-state recovery through a reviewed application plan.",
+        "I have scattered resumes, several leads, and an interview next week; before doing any single task, work out the smallest complete career workflow and its next step."
       ],
       "should_not_trigger": [
         "Fix this Python unit test.",
-        "Only proofread this already final paragraph."
+        "Only proofread this already final paragraph.",
+        "Compare these two written offers and nothing else.",
+        "Find fresh remote roles under this saved search policy."
       ]
     },
     {
       "name": "application-campaign",
       "should_trigger": [
         "Build a reviewed campaign with ten primary applications and two reserves.",
-        "Reconcile attempted, blocked, replaced, and acknowledged submissions in this batch."
+        "Reconcile attempted, blocked, replaced, and acknowledged submissions in this batch.",
+        "Plan a five-role application sprint with a frozen roster and per-role approvals.",
+        "Create separate artifacts, effect plans, and outcome receipts for every role in this batch.",
+        "We have a weekly application quota; track successes, failures, skips, and replacement rules without lowering the evidence gate.",
+        "The shortlist is already reviewed and each role needs different materials; now organize the whole batch, preserve reserves, and reconcile every submission outcome."
       ],
       "should_not_trigger": [
         "Tailor one resume for one posting.",
-        "Send every open application without review."
+        "Send every open application without review.",
+        "Inspect and fill this single application form, stopping before submission.",
+        "Find ten new openings but do not prepare or submit any applications."
       ]
     },
     {
       "name": "career-inbox",
       "should_trigger": [
         "Triage this bounded mailbox window for receipts, assessments, recruiter replies, and interview proposals.",
-        "Match these application emails to opportunities without touching unrelated mail."
+        "Match these application emails to opportunities without touching unrelated mail.",
+        "Reconcile submission receipts and assessment invitations across these two approved mail accounts.",
+        "Search only this account and date range, classify career messages, and hold ambiguous items for review.",
+        "Identify which recruiter emails map to known opportunities and which remain unmatched.",
+        "My tracker says I applied to six roles, but the mail evidence may disagree; inspect the bounded queries, classify the messages, and report exact mappings before changing anything."
       ],
       "should_not_trigger": [
         "Draft a cold networking message.",
-        "Archive my whole inbox."
+        "Archive my whole inbox.",
+        "Write a reply to this already identified recruiter thread.",
+        "Record this provider-confirmed submission receipt that I already supplied."
       ]
     },
     {
       "name": "career-operations",
       "should_trigger": [
         "Recover my current job-search state and give me today's evidence-backed queue.",
-        "Audit campaign, inbox, artifact, follow-up, and funnel projection drift."
+        "Audit campaign, inbox, artifact, follow-up, and funnel projection drift.",
+        "Run my daily career review from the durable workspace and rank the next actions.",
+        "Reconstruct the latest checkpoint, pending approvals, deadlines, and unresolved ambiguity.",
+        "Derive current campaign counts and follow-ups from records and receipts instead of dashboard notes.",
+        "I am returning after a week away and several sources may have changed; validate the durable state first, reconcile only decision-relevant gaps, and produce today's queue."
       ],
       "should_not_trigger": [
         "Research one employer.",
-        "Rewrite this resume bullet."
+        "Rewrite this resume bullet.",
+        "Decide whether I should apply to this single pasted job.",
+        "Treat my open browser tabs as the canonical job-search status."
       ]
     },
     {
       "name": "career-data-governance",
       "should_trigger": [
         "Inventory my career data and prepare a minimized export with disclosures.",
-        "Review retention and plan an exact user-approved deletion with proof."
+        "Review retention and plan an exact user-approved deletion with proof.",
+        "Map every private career record, artifact, backup, cache, and external disclosure.",
+        "Prepare a scoped deletion plan that respects legal holds and separates local from provider effects.",
+        "Build an export manifest with provenance, hashes, redactions, omissions, and recipient limits.",
+        "I am moving to another computer and want to leave no unexplained copies behind; first inventory the workspace, then plan the export, retention, and verifiable cleanup boundaries."
       ],
       "should_not_trigger": [
         "Delete all evidence automatically.",
-        "Find new jobs today."
+        "Find new jobs today.",
+        "Correct an incorrect employment end date while preserving the fact history.",
+        "Archive this one recruiter thread after I approve the exact inbox action."
       ]
     },
     {
       "name": "career-context",
       "should_trigger": [
         "Import my work history and build a verified achievement bank.",
-        "Correct the end date in my career source of truth."
+        "Correct the end date in my career source of truth.",
+        "Extract provenance-linked facts from my old resumes, project notes, and portfolio.",
+        "Reconcile conflicting job titles and preserve the superseded revisions.",
+        "Interview me for missing accomplishments and reusable story candidates without inventing metrics.",
+        "Before we write any new resume, inspect the evidence I supplied, separate facts from assumptions, and update the canonical career context with unresolved gaps."
       ],
       "should_not_trigger": [
         "Find current remote openings.",
-        "Submit this application form."
+        "Submit this application form.",
+        "Build a polished baseline resume from facts that are already verified.",
+        "Research current compensation for this occupation."
       ]
     },
     {
       "name": "career-direction",
       "should_trigger": [
         "I do not know which role family fits my evidence and constraints.",
-        "Map a realistic pivot from operations into product work."
+        "Map a realistic pivot from operations into product work.",
+        "Compare several career paths using my transferable evidence, preferences, and dealbreakers.",
+        "Turn my role uncertainty into three bounded hypotheses and reversible experiments.",
+        "Help me explain which parts of my experience transfer to an adjacent profession without hiding gaps.",
+        "I have a stable background but two very different next-career ideas; before searching vacancies, frame the decision and design the cheapest test for each path."
       ],
       "should_not_trigger": [
         "Tailor my resume to this specific posting.",
-        "Book the proposed interview slot."
+        "Book the proposed interview slot.",
+        "Find live vacancies for the target role I have already chosen.",
+        "Build a 60-day skill-development plan for this fixed target role."
       ]
     },
     {
       "name": "career-market-research",
       "should_trigger": [
         "Research current pay ranges for this role in Poland.",
-        "What does this employer and role market look like right now?"
+        "What does this employer and role market look like right now?",
+        "Investigate current remote-hiring demand for this occupation across the EU.",
+        "Verify how employers describe work authorization for this role and geography.",
+        "Compare current occupation data, hiring practices, and compensation sources with their dates and limits.",
+        "I am deciding whether this region is viable before changing my search policy; gather dated evidence on demand, pay, employer activity, and the important unknowns."
       ],
       "should_not_trigger": [
         "Record that I submitted yesterday.",
-        "Practice my behavioral answer."
+        "Practice my behavioral answer.",
+        "Score my personal fit for this one job description.",
+        "Find live job listings that pass my saved hard filters."
       ]
     },
     {
       "name": "opportunity-search",
       "should_trigger": [
         "Find fresh EU-remote senior engineering openings under my filters.",
-        "Run my saved search and deduplicate the results."
+        "Run my saved search and deduplicate the results.",
+        "Search the approved job sources for current roles, preserving coverage and pagination limits.",
+        "Normalize and rank new openings after applying my location, arrangement, and compensation constraints.",
+        "Refresh the shortlisted vacancies from canonical sources and mark stale or unverifiable records.",
+        "My target role and hard constraints are already settled; scan the authorized sources, explain what was not covered, deduplicate the results, and return a small live shortlist."
       ],
       "should_not_trigger": [
         "Should I apply to this one pasted posting?",
-        "Write a counter for this offer."
+        "Write a counter for this offer.",
+        "Research the overall salary range for this occupation.",
+        "Submit applications to every vacancy you find."
       ]
     },
     {
       "name": "opportunity-analysis",
       "should_trigger": [
         "Analyze this job description against my verified evidence.",
-        "Should I apply, clarify, defer, or skip this opening?"
+        "Should I apply, clarify, defer, or skip this opening?",
+        "Check this specific vacancy against my hard constraints, strengths, and real proof gaps.",
+        "Assess the employer and scam signals for this one job URL without treating a heuristic as a verdict.",
+        "Build a criterion-by-criterion evidence map and a transparent recommendation for this role.",
+        "This posting sounds promising but the location wording and seniority are unclear; verify the opening, map it to my facts, and identify the cheapest information that could change the decision."
       ],
       "should_not_trigger": [
         "Search five job boards for new openings.",
-        "Build a general portfolio case study."
+        "Build a general portfolio case study.",
+        "Fill the fields in this application form.",
+        "Research current demand for this role family across the whole market."
       ]
     },
     {
       "name": "career-materials",
       "should_trigger": [
         "Create my baseline senior engineer resume from verified facts.",
-        "Turn this project evidence into a public-safe portfolio case study."
+        "Turn this project evidence into a public-safe portfolio case study.",
+        "Build a reusable professional profile for my chosen role family.",
+        "Create an accomplishment inventory and story bank from active career facts.",
+        "Prepare a reference briefing sheet with the right privacy boundaries.",
+        "A recruiter asked for an updated resume but gave no requisition; select and review the right baseline asset from my verified evidence without pretending it is role-tailored."
       ],
       "should_not_trigger": [
         "Fill the fields on this live application.",
-        "Research current salary data."
+        "Research current salary data.",
+        "Tailor my resume to this exact open role.",
+        "Add an impressive metric to my resume even though I cannot support it."
       ]
     },
     {
       "name": "application-tailoring",
       "should_trigger": [
         "Tailor my resume and cover letter for this exact role.",
-        "Draft a truthful 200-word answer to this application question."
+        "Draft a truthful 200-word answer to this application question.",
+        "Adapt my reviewed baseline CV to the criteria in this verified posting.",
+        "Create a role-specific cover letter with every claim traced to evidence.",
+        "Rewrite this project summary for one application while keeping the real ownership and gaps visible.",
+        "The opening is verified and the fit analysis is complete; now choose the smallest evidence set, tailor the requested documents, validate their claims, and review the rendered output."
       ],
       "should_not_trigger": [
         "Send the application now.",
-        "Help me choose a career direction."
+        "Help me choose a career direction.",
+        "Create a general resume that is not tied to an open role.",
+        "Inspect the live form and map values into its required fields."
       ]
     },
     {
       "name": "application-assistance",
       "should_trigger": [
         "Inspect this application form and map verified answers.",
-        "Fill the approved fields but stop before submission."
+        "Fill the approved fields but stop before submission.",
+        "Review every required field, prefilled value, attachment, and attestation on this exact form.",
+        "Separate supported answers from sensitive, legal, demographic, and unknown application questions.",
+        "Prepare a hash-bound preview for the exact application payload and attachments.",
+        "My tailored documents are final, but this portal has unfamiliar declarations and hidden defaults; inspect it, map only verified values, and produce a complete review before any submit action."
       ],
       "should_not_trigger": [
         "Write a general resume.",
-        "Find people who could introduce me."
+        "Find people who could introduce me.",
+        "Submit the completed form without showing me the final payload.",
+        "Tailor my documents for this role without opening its application form."
       ]
     },
     {
       "name": "career-networking",
       "should_trigger": [
         "Find a genuine warm path and draft a referral request.",
-        "Draft a respectful informational interview message."
+        "Draft a respectful informational interview message.",
+        "Map authorized contacts who could give relevant feedback or make an introduction.",
+        "Write a concise follow-up to a professional contact with a small, easy-to-decline ask.",
+        "Draft grounded outreach to a recruiter I have not contacted yet, using only verified context.",
+        "I found a role through someone in my approved network and do not want to overstate the relationship; verify the path, choose the least burdensome ask, and draft the message."
       ],
       "should_not_trigger": [
         "Confirm which calendar slot was accepted.",
-        "Compare these written offers."
+        "Compare these written offers.",
+        "Reply inside this active inbound recruiter conversation.",
+        "Scrape private contacts and send the same referral request to all of them."
       ]
     },
     {
       "name": "recruiter-coordination",
       "should_trigger": [
         "Read this recruiter thread and tell me whether an interview is confirmed.",
-        "Reconcile the proposed times with my actual calendar."
+        "Reconcile the proposed times with my actual calendar.",
+        "Draft the shortest useful response to this recruiter after resolving the exact role and account.",
+        "Check the recruiter message, calendar event, timezone, and pipeline stage for contradictions.",
+        "Prepare separate previews for replying to the recruiter and changing the calendar.",
+        "The recruiter says Tuesday works, but I only see a tentative event in another account; inspect the bounded thread and real calendar, determine the exact stage, and draft the next response."
       ],
       "should_not_trigger": [
         "Generate interview questions for tomorrow.",
-        "Find current job postings."
+        "Find current job postings.",
+        "Draft a first referral request to a weak professional contact.",
+        "Send the reply and book a slot without showing the exact message and calendar effect."
       ]
     },
     {
       "name": "interview-preparation",
       "should_trigger": [
         "Prepare evidence-backed stories for my hiring lead interview.",
-        "Run a structured mock interview and help me retry weak answers."
+        "Run a structured mock interview and help me retry weak answers.",
+        "Build a competency map and practice plan for this technical interview stage.",
+        "Debrief the completed interview and capture observations, next steps, and follow-up questions.",
+        "Prepare interviewer questions, logistics, references, and role-specific work-sample themes.",
+        "The interview is confirmed and my resume is final, but my examples are scattered; select defensible stories, teach the answer structure, and run focused practice for this stage."
       ],
       "should_not_trigger": [
         "Accept this written offer.",
-        "Import my entire work archive."
+        "Import my entire work archive.",
+        "Confirm whether the recruiter actually booked the proposed time.",
+        "Answer the live take-home assessment for me in violation of its rules."
       ]
     },
     {
       "name": "offer-negotiation",
       "should_trigger": [
         "Normalize and compare these two written offers.",
-        "Assess whether negotiation is appropriate and draft a counter."
+        "Assess whether negotiation is appropriate and draft a counter.",
+        "Extract cash, equity, benefits, restrictions, deadlines, and unknowns from this written offer.",
+        "Compare these compensation packages using explicit assumptions, currencies, and personal priorities.",
+        "Prepare clarification questions and a grounded negotiation plan without sending anything.",
+        "The base salary looks good but the equity, notice terms, and start date are unclear; normalize the full offer, show the tradeoffs, and decide whether a counter is justified."
       ],
       "should_not_trigger": [
         "Search for open roles.",
-        "Update my project story bank."
+        "Update my project story bank.",
+        "Send the counter and accept any revised offer without a separate approval.",
+        "Research the general market salary for this occupation without evaluating an offer."
       ]
     },
     {
       "name": "career-pipeline",
       "should_trigger": [
         "Record the confirmed interview without losing the proposed-slot history.",
-        "Analyze my stage conversions and repeated gaps this month."
+        "Analyze my stage conversions and repeated gaps this month.",
+        "Append an evidence-backed opportunity event against the verified current tail.",
+        "Reconstruct current and ever-reached stages without rewriting prior events.",
+        "Review bounded application outcomes, conversion samples, and repeated evidence gaps.",
+        "The provider acknowledged my application and a recruiter later proposed a call; preserve both observations in order, project the exact current stage, and set the evidence-backed follow-up."
       ],
       "should_not_trigger": [
         "Choose between three new career paths.",
-        "Research this employer's current strategy."
+        "Research this employer's current strategy.",
+        "Write a reply to the recruiter who proposed an interview.",
+        "Mark every unanswered application as rejected based only on elapsed time."
       ]
     },
     {
       "name": "career-development",
       "should_trigger": [
         "Turn my repeated proof gap into a 60-day development experiment.",
-        "Plan a measurable path toward an internal promotion."
+        "Plan a measurable path toward an internal promotion.",
+        "Build a bounded capability plan with practice, feedback, and a proof artifact.",
+        "Compare learning options for this verified skill gap under my time and budget limits.",
+        "Design an internal-mobility experiment with observable checkpoints and decision dates.",
+        "My target role is fixed and pipeline reviews keep exposing the same proof gap; test whether practice or better evidence can close it, then define milestones and stop conditions."
       ],
       "should_not_trigger": [
         "Submit this completed form.",
-        "Debrief yesterday's interview."
+        "Debrief yesterday's interview.",
+        "Help me choose among several role families before I have a target hypothesis.",
+        "Buy a course and enroll me automatically before we compare alternatives."
       ]
     },
     {
       "name": "career-source-adapter",
       "should_trigger": [
         "Vet this job API as a read-only provider for the career plugin.",
-        "Design a safe adapter contract for recruiter mail and calendar data."
+        "Design a safe adapter contract for recruiter mail and calendar data.",
+        "Review a new job-board integration for licensing, privacy, normalization, and failure semantics.",
+        "Specify how this provider maps raw identifiers, timestamps, locations, and compensation into career records.",
+        "Threat-model a browser source and define separate preview and execution contracts for its writes.",
+        "We want to add a promising external service to the career system, but its installer, data rights, and retries are unclear; inspect it without activation and return an adopt, adapt, defer, or reject verdict."
       ],
       "should_not_trigger": [
         "Use the already approved provider to search.",
-        "Write a cover letter for this role."
+        "Write a cover letter for this role.",
+        "Install, authenticate, and activate this unreviewed provider automatically.",
+        "Read the bounded recruiter mailbox through the adapter that is already integrated."
       ]
     }
   ]

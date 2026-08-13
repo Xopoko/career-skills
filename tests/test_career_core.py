@@ -159,6 +159,18 @@ class CareerCoreTest(unittest.TestCase):
         self.assertTrue(payload["valid"])
         self.assertEqual(20, payload["skills"])
 
+    def test_trigger_contract_has_production_depth(self):
+        fixture = PLUGIN_ROOT / "tests" / "fixtures" / "trigger-cases.json"
+        payload = json.loads(fixture.read_text(encoding="utf-8"))
+        prompts = []
+        for case in payload["skills"]:
+            self.assertGreaterEqual(len(case["should_trigger"]), 6, case["name"])
+            self.assertGreaterEqual(len(case["should_not_trigger"]), 4, case["name"])
+            prompts.extend(case["should_trigger"])
+            prompts.extend(case["should_not_trigger"])
+        self.assertEqual(len(prompts), len(set(prompts)))
+        self.assertTrue(all(prompt.isascii() for prompt in prompts))
+
     def test_approval_hash_is_stable_across_key_order(self):
         plan = read_template("effect-plan.example.json")
         reversed_plan = dict(reversed(list(plan.items())))

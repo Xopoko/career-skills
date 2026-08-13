@@ -2,4 +2,4 @@ interface:
   display_name: "Career Skills"
   short_description: "Route evidence-first career work end to end"
   default_prompt: "Help me choose and complete the next career step using supported facts, visible uncertainty, and approval-gated external actions."
-  brand_color: "#123B4A"
+  brand_color: "#001A3F"

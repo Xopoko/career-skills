@@ -1,6 +1,6 @@
 ---
 name: career-networking
-description: Career networking finds authorized warm paths and drafts grounded referral, recruiter, informational-interview, and follow-up messages while minimizing retained contact data. Excludes sending without approval.
+description: Career networking finds authorized warm paths and drafts outbound referral, recruiter-outreach, informational-interview, and follow-up messages with minimal contact data. Excludes inbound recruiter threads and unapproved sending.
 ---
 
 # Career Networking

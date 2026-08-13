@@ -1,110 +1,164 @@
-# Career Skills
+<p align="center">
+  <img src="assets/icon.png" width="128" alt="Career Skills logo">
+</p>
 
-Career Skills is a portable, evidence-first operating layer for career decisions and
-job search. It keeps reusable facts separate from generated artifacts, live
-market observations separate from durable evidence, and local drafts separate
-from external effects.
+<h1 align="center">Career Skills</h1>
 
-It ships as 20 focused Agent Skills behind one router, plus a network-free
-validator for career facts, evidence, opportunities, artifacts, campaigns,
-due actions, pipeline events, and approval-gated effects.
+<p align="center">
+  Evidence-first career and job-search workflows for decisions you can explain
+  and actions you control.
+</p>
 
-The plugin supports people who are exploring direction, actively searching,
-changing role families, preparing for interviews, comparing offers, or building
-longer-term career capital. It is not a legal, tax, immigration, medical, or
-mental-health decision maker.
+<p align="center">
+  <strong>Codex</strong> &middot; <strong>Claude Code</strong> &middot;
+  <strong>Cursor</strong> &middot; <strong>Agent Skills</strong>
+</p>
 
-## Install
+<p align="center">
+  <a href="https://github.com/Xopoko/career-skills/actions/workflows/ci.yml"><img src="https://github.com/Xopoko/career-skills/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-F59E0B.svg" alt="MIT license"></a>
+</p>
 
-Claude Code:
+Career Skills is a portable skill system for career direction, job discovery,
+applications, interviews, offers, and long-term career development. It gives a
+general-purpose agent a durable operating model: facts stay linked to evidence,
+uncertainty remains visible, and drafts do not silently become external actions.
+
+The repository contains 20 focused Agent Skills behind one router, shared
+references and templates, and a deterministic, network-free Python toolkit.
+It does not ship a job-board scraper, mail client, calendar integration, or
+automatic application bot.
+
+## Quick Start
+
+### Ask Your Agent
+
+Paste this into an agent that can install local plugins:
+
+> Install Career Skills from https://github.com/Xopoko/career-skills on this
+> computer. Validate the source first, preserve the complete repository so the
+> skills can reach their bundled references, templates, and scripts, configure
+> it only for the current host, and report exactly what changed. Do not enable
+> mail, calendar, browser, or job-source access.
+
+### Codex
+
+```bash
+codex plugin marketplace add Xopoko/career-skills
+codex plugin add career@career-skills
+codex plugin list
+```
+
+### Claude Code
+
+Run these slash commands inside Claude Code:
 
 ```text
 /plugin marketplace add Xopoko/career-skills
 /plugin install career@career-skills
+/reload-plugins
 ```
 
-Codex, Cursor, and other Agent Skills hosts can install from this repository or
-through a reviewed pin in Plug'n Skills. See `docs/INSTALL.md`.
+The command-line equivalent is:
+
+```bash
+claude plugin marketplace add Xopoko/career-skills
+claude plugin install career@career-skills
+claude plugin list
+```
+
+### Cursor
+
+Install the complete repository as a local plugin. Create the parent directory
+first if it does not exist:
+
+```bash
+git clone https://github.com/Xopoko/career-skills.git "$HOME/.cursor/plugins/local/career"
+cd "$HOME/.cursor/plugins/local/career"
+python scripts/validate_package.py
+```
+
+Restart Cursor or run **Developer: Reload Window**, then verify **Career
+Skills** under **Customize**. Do not copy only the directories under `skills/`;
+the workflows also use the repository-level `references/`, `templates/`, and
+`scripts/` directories.
+
+See the [complete installation guide](docs/INSTALL.md) for local-checkout and
+host-specific details.
 
 ## Skill Map
 
-- `career`: route broad and multi-stage requests.
-- `career-context`: capture facts, proof, preferences, constraints, and stories.
-- `career-direction`: compare role families, pivots, and small experiments.
-- `career-market-research`: research occupations, employers, pay, and geography.
-- `opportunity-search`: find, normalize, filter, deduplicate, and rank leads.
-- `opportunity-analysis`: map a posting to evidence, constraints, risks, and gaps.
-- `career-materials`: build baseline resumes, profiles, portfolios, and briefs.
-- `application-tailoring`: tailor truthful artifacts for one opportunity.
-- `application-assistance`: review and fill forms behind an external-action gate.
-- `application-campaign`: run bounded multi-role rosters with per-role approval and receipts.
-- `career-inbox`: classify and reconcile bounded job-search communications.
-- `career-networking`: find warm paths and draft grounded outreach.
-- `recruiter-coordination`: reconcile messages, scheduling, and follow-ups.
-- `interview-preparation`: prepare evidence-backed stories and practice loops.
-- `offer-negotiation`: normalize and compare terms, then plan a counter.
-- `career-pipeline`: maintain event-sourced state and learn from outcomes.
-- `career-operations`: recover durable state and derive the daily queue and drift view.
-- `career-data-governance`: inventory, export, retain, hold, and delete private career data.
-- `career-development`: turn repeated gaps into bounded growth experiments.
-- `career-source-adapter`: specify and vet new sources without auto-activation.
+| Stage | Skills | What the agent can help produce |
+| --- | --- | --- |
+| Route and govern | `career`, `career-context`, `career-operations`, `career-data-governance` | A bounded plan, reusable fact and evidence records, a daily queue, and explicit data-handling rules |
+| Explore and learn | `career-direction`, `career-market-research`, `career-development`, `career-source-adapter` | Target hypotheses, dated market evidence, growth experiments, and vetted source contracts |
+| Find and evaluate | `opportunity-search`, `opportunity-analysis`, `career-pipeline` | Normalized leads, transparent fit and risk analysis, and event-sourced outcome learning |
+| Prepare and apply | `career-materials`, `application-tailoring`, `application-assistance`, `application-campaign` | Evidence-backed baseline materials, truthful role-specific drafts, reviewed forms, and bounded campaigns |
+| Communicate and decide | `career-inbox`, `career-networking`, `recruiter-coordination`, `interview-preparation`, `offer-negotiation` | Reconciled messages, grounded outreach, interview practice, and normalized offer comparisons |
 
-## Core Invariants
+Use `career` for a broad or multi-stage request. Invoke a focused skill when
+the task already has a clear boundary, such as evaluating one posting,
+preparing for one interview, or comparing concrete offer terms.
 
-- A generated artifact is never a new fact by itself.
-- Every material claim is supported, explicitly self-reported, marked for
+## Trust Model
+
+- Generated text is not treated as a new fact by itself.
+- Material claims are supported, explicitly self-reported, marked for
   confirmation, or omitted.
-- Search ranking exposes hard filters, factors, weights, missing data, and
-  freshness; it is not a probability of success.
-- Opportunity `status` and final `outcome` are separate fields.
-- Drafting, filling, sending, scheduling, submitting, accepting, paying, and
-  deleting are distinct effects.
-- External effects require an immutable preview and explicit authority at that
-  exact boundary.
-- Sensitive and equal-opportunity fields are never inferred.
-- Current postings, people, pay, law, platform behavior, and employer facts are
+- Current postings, people, compensation, laws, and platform behavior are
   refreshed and date-stamped when they affect a decision.
+- Rankings expose filters, factors, weights, missing data, and freshness. They
+  are not presented as probabilities of success.
+- Sending, scheduling, submitting, accepting, paying, and deleting require an
+  immutable preview, explicit approval for that exact action, and a receipt.
+- Sensitive and equal-opportunity attributes are never inferred.
 
-## Local Workspace
+The skills support user decisions; they do not replace legal, tax,
+immigration, medical, or mental-health professionals.
 
-The deterministic helper creates a private workspace without overwriting an
+## Private Workspace
+
+The helper can create a user-owned career workspace without overwriting an
 existing file:
 
 ```bash
-python3 scripts/career_core.py init-workspace path/to/career-data
-python3 scripts/career_core.py validate-workspace path/to/career-data
+python scripts/career_core.py init-workspace path/to/career-data
+python scripts/career_core.py validate-workspace path/to/career-data
 ```
 
-The workspace is user-owned runtime data. Do not commit it to this repository.
-See `references/workspace-contract.md` before importing personal information.
+Keep this workspace outside the repository and out of version control. Read the
+[workspace contract](references/workspace-contract.md) before importing
+personal information.
 
-## Deterministic Helpers
+## Deterministic Toolkit
+
+The standard-library-only helper validates records, checks claims, normalizes
+and deduplicates opportunities, scores transparent fit factors, projects the
+event log, derives an operations brief, and verifies approval-bound effects.
 
 ```bash
-python3 scripts/career_core.py validate-record record.json
-python3 scripts/career_core.py dedupe-opportunities opportunities.jsonl
-python3 scripts/career_core.py score-fit analysis.json
-python3 scripts/career_core.py validate-claims --facts facts.jsonl --evidence evidence.jsonl --manifest claims.json
-python3 scripts/career_core.py append-event --workspace path/to/career-data --event event.json --expected-tail-id EMPTY
-python3 scripts/career_core.py project path/to/career-data
-python3 scripts/career_core.py ops-brief path/to/career-data --as-of 2026-08-13T12:00:00Z
-python3 scripts/career_core.py verify-append --base old-data --candidate new-data
-python3 scripts/career_core.py effect-hash effect-plan.json
-python3 scripts/career_core.py check-triggers
-python3 scripts/token_report.py
+python scripts/career_core.py --help
+python scripts/career_core.py validate-record record.json
+python scripts/career_core.py check-triggers
+python scripts/token_report.py
 ```
 
-These helpers do not browse, authenticate, send, book, submit, accept, pay, or
-delete. Provider adapters remain separate and must satisfy the contract in
-`references/provider-contract.md`.
+These commands do not browse, authenticate, send, book, submit, accept, pay, or
+delete. Any provider integration remains separate and must satisfy the
+[provider contract](references/provider-contract.md).
 
-## Validation
+## Development
+
+The package is network-free at validation time and tested on Windows and Linux
+with Python 3.11 and 3.13.
 
 ```bash
-python3 scripts/validate_package.py
-python3 -m unittest discover -s tests
-python3 scripts/career_core.py check-triggers
+python scripts/validate_package.py
+python -m unittest discover -s tests
+python scripts/career_core.py check-triggers
+python scripts/token_report.py
 ```
 
-The first release is source-only and ships no live job-board, mail, calendar,
-browser, payment, or submission connector.
+Read [Contributing](CONTRIBUTING.md) before changing contracts or skills. For
+security and privacy reports, follow [Security](SECURITY.md). Career Skills is
+available under the [MIT License](LICENSE).

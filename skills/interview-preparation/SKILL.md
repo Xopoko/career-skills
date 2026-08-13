@@ -1,6 +1,6 @@
 ---
 name: interview-preparation
-description: Interview preparation builds a stage-specific competency map, evidence-backed story bank, practice loop, interviewer questions, reference plan, and follow-up capture. Covers behavioral and role-specific interviews.
+description: Interview preparation handles stage-specific competency maps, evidence-backed stories, mock practice, interviewer questions, reference planning, logistics, and post-interview debriefs across behavioral and role-specific interviews.
 ---
 
 # Interview Preparation

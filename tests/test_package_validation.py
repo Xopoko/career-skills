@@ -57,6 +57,69 @@ class PackageValidationTest(unittest.TestCase):
         self.assertEqual(1, result.returncode, result.stdout)
         self.assertIn("marketplace plugin version differs", result.stdout)
 
+    def replace_description(self, skill: str, description: str):
+        path = self.copy / "skills" / skill / "SKILL.md"
+        lines = path.read_text(encoding="utf-8").splitlines()
+        lines[2] = f"description: {description}"
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    def test_generic_skill_description_lead_is_rejected(self):
+        self.replace_description(
+            "opportunity-search",
+            "Use when the user wants fresh job opportunities from approved sources.",
+        )
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("must lead with the owned career capability", result.stdout)
+
+    def test_overlong_skill_description_is_rejected(self):
+        self.replace_description("opportunity-search", "Opportunity search " + ("x" * 223))
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("description must contain 1-240 characters", result.stdout)
+
+    def test_skill_description_prefix_collision_is_rejected(self):
+        source = self.copy / "skills" / "application-campaign" / "SKILL.md"
+        description = source.read_text(encoding="utf-8").splitlines()[2].split(": ", 1)[1]
+        self.replace_description("opportunity-search", description[:40] + " with another ending.")
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("description characters collide", result.stdout)
+
+    def test_extra_skill_frontmatter_key_is_rejected(self):
+        path = self.copy / "skills" / "opportunity-search" / "SKILL.md"
+        text = path.read_text(encoding="utf-8")
+        path.write_text(text.replace("---\n\n", "metadata: extra\n---\n\n", 1), encoding="utf-8")
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("unsupported frontmatter keys", result.stdout)
+
+    def test_invalid_plain_yaml_description_is_rejected(self):
+        self.replace_description(
+            "opportunity-search",
+            "Opportunity search: find fresh roles from approved sources.",
+        )
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("plain frontmatter value", result.stdout)
+
+    def test_crlf_skill_frontmatter_is_supported(self):
+        path = self.copy / "skills" / "opportunity-search" / "SKILL.md"
+        text = path.read_text(encoding="utf-8")
+        path.write_bytes(text.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
+        result = self.validate()
+        self.assertEqual(0, result.returncode, result.stdout)
+
+    def test_ignored_scratch_is_excluded_without_git_metadata(self):
+        scratch = self.copy / "tmp" / "runtime-copy"
+        scratch.mkdir(parents=True)
+        (scratch / "private.md").write_text(
+            "machine path " + "C:" + "/Users/example/private.txt\n",
+            encoding="utf-8",
+        )
+        result = self.validate()
+        self.assertEqual(0, result.returncode, result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

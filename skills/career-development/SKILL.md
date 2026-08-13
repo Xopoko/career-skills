@@ -1,6 +1,6 @@
 ---
 name: career-development
-description: Career development converts recurring evidence gaps and long-term goals into bounded learning, portfolio, visibility, mentoring, and internal-mobility experiments with measurable checkpoints.
+description: Career development turns verified targets or repeated evidence gaps into bounded learning, portfolio, visibility, mentoring, and internal-mobility experiments with checkpoints. Excludes role-family selection and application work.
 ---
 
 # Career Development

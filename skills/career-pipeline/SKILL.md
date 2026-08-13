@@ -1,6 +1,6 @@
 ---
 name: career-pipeline
-description: Career pipeline tracking records event-sourced opportunity status, distinct outcomes, artifact lineage, follow-ups, interviews, offers, conversion metrics, and evidence-backed learning.
+description: Career pipeline records event-sourced opportunity stages, outcomes, artifact lineage, follow-ups, interviews, and offers, and analyzes bounded conversion history. Excludes cross-surface daily operations and unverified status changes.
 ---
 
 # Career Pipeline
