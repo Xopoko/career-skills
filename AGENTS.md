@@ -19,6 +19,10 @@ and other Agent Skills consumers.
 - `scripts/` contains deterministic, network-free helpers.
 - `tests/` contains `unittest` coverage and synthetic fixtures.
 - `.codex-plugin/` and `.claude-plugin/` are aligned package manifests.
+- The Codex manifest publishes
+  `interface.websiteURL: https://github.com/Xopoko/plug-n-skills` as the
+  catalog landing page while `homepage` and `repository` remain bound to
+  this standalone source.
 
 ## Authoring Rules
 

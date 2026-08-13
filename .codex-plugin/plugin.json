@@ -1,6 +1,6 @@
 {
   "name": "career",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Evidence-first career support for direction, research, job discovery, materials, applications and campaigns, inbox and recruiter coordination, interviews, offers, operations, development, and data governance.",
   "author": {
     "name": "Xopoko",
@@ -30,6 +30,7 @@
     "longDescription": "Build a durable career context, choose direction, research roles and labor markets, discover and evaluate opportunities, produce traceable materials, assist with applications, coordinate recruiter conversations, prepare for interviews, compare offers, plan development, and learn from an event-sourced pipeline. Claims remain linked to evidence, live facts are dated, uncertainty stays visible, and external actions require a reviewed plan plus explicit authority at the final boundary.",
     "developerName": "Xopoko",
     "category": "Productivity",
+    "websiteURL": "https://github.com/Xopoko/plug-n-skills",
     "capabilities": [
       "Career context and evidence capture",
       "Role-family exploration and transition planning",

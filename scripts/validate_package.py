@@ -145,6 +145,15 @@ def main() -> int:
             errors.append("manifest name must remain the stable plugin id 'career'")
         if manifests[0].get("repository") != "https://github.com/Xopoko/career-skills":
             errors.append("manifest repository must point to the standalone source")
+        interface = manifests[0].get("interface")
+        if (
+            not isinstance(interface, dict)
+            or interface.get("websiteURL")
+            != "https://github.com/Xopoko/plug-n-skills"
+        ):
+            errors.append(
+                "Codex manifest website must point to the Plug'n Skills catalog"
+            )
 
     cursor_manifest = None
     try:
@@ -172,6 +181,8 @@ def main() -> int:
     if marketplace is not None:
         if marketplace.get("name") != "career-skills":
             errors.append("Claude marketplace name must be 'career-skills'")
+        if manifests and marketplace.get("version") != manifests[0].get("version"):
+            errors.append("Claude marketplace version differs from the shared manifest")
         plugins = marketplace.get("plugins")
         if not isinstance(plugins, list) or len(plugins) != 1 or not isinstance(plugins[0], dict):
             errors.append("Claude marketplace must declare exactly one plugin")
@@ -183,6 +194,18 @@ def main() -> int:
                 for key in ("version", "description", "repository", "license"):
                     if entry.get(key) != manifests[0].get(key):
                         errors.append(f"Claude marketplace plugin {key} differs from the shared manifest")
+
+    package = None
+    try:
+        package = read_json(ROOT / "package.json")
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        errors.append(f"package.json: {exc}")
+    if (
+        package is not None
+        and manifests
+        and package.get("version") != manifests[0].get("version")
+    ):
+        errors.append("package.json version differs from the shared manifest")
 
     skill_paths = sorted((ROOT / "skills").glob("*/SKILL.md"))
     skill_names: set[str] = set()

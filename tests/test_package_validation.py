@@ -39,6 +39,15 @@ class PackageValidationTest(unittest.TestCase):
         self.assertEqual(1, result.returncode, result.stdout)
         self.assertIn(".cursor-plugin/plugin.json", result.stdout)
 
+    def test_codex_website_must_point_to_catalog(self):
+        path = self.copy / ".codex-plugin" / "plugin.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["interface"].pop("websiteURL")
+        path.write_text(json.dumps(value) + "\n", encoding="utf-8")
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("website must point to the Plug'n Skills catalog", result.stdout)
+
     def test_cursor_wildcard_is_rejected(self):
         path = self.copy / ".cursor-plugin" / "plugin.json"
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -56,6 +65,24 @@ class PackageValidationTest(unittest.TestCase):
         result = self.validate()
         self.assertEqual(1, result.returncode, result.stdout)
         self.assertIn("marketplace plugin version differs", result.stdout)
+
+    def test_claude_marketplace_root_version_parity_is_enforced(self):
+        path = self.copy / ".claude-plugin" / "marketplace.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["version"] = "9.9.9"
+        path.write_text(json.dumps(value) + "\n", encoding="utf-8")
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("marketplace version differs", result.stdout)
+
+    def test_package_version_parity_is_enforced(self):
+        path = self.copy / "package.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["version"] = "9.9.9"
+        path.write_text(json.dumps(value) + "\n", encoding="utf-8")
+        result = self.validate()
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertIn("package.json version differs", result.stdout)
 
     def replace_description(self, skill: str, description: str):
         path = self.copy / "skills" / skill / "SKILL.md"
