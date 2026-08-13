@@ -940,6 +940,106 @@ class CareerCoreTest(unittest.TestCase):
         self.assertIn("event.plan_not_approved", codes)
         self.assertIn("campaign.plan_action", codes)
 
+    def test_completed_campaign_requires_provider_acknowledgement_and_projects_once(self):
+        plan_path = self.root / "plans" / "effects" / "example.json"
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        plan["effect"].update(
+            {
+                "action": "submit_application",
+                "effect_class": "application_submission",
+                "target": {"url": "https://example.org/careers/role-42"},
+                "payload": {"fields": {"name": "Reviewed Candidate"}},
+                "attachments": [
+                    {"name": "example-resume.pdf", "sha256": "0" * 64}
+                ],
+            }
+        )
+        plan["approval"] = {
+            "state": "approved",
+            "approved_by": "user",
+            "approved_at": "2026-08-13T10:04:30Z",
+        }
+        plan["approval_hash"] = core.canonical_sha256(core.approval_basis(plan))
+        write_json(plan_path, plan)
+
+        first = read_template("pipeline-event.example.json")
+        effect = self.effect_event(
+            "event-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+            first["id"],
+            "2026-08-13T10:04:45Z",
+        )
+        effect["status_after"] = "applied"
+        write_jsonl(self.root / "pipeline-events.jsonl", [first, effect])
+
+        campaign_path = self.root / "plans" / "campaigns" / "example.json"
+        campaign = json.loads(campaign_path.read_text(encoding="utf-8"))
+        campaign["state"] = "completed"
+        campaign["items"][0].update(
+            {
+                "plan_id": plan["plan_id"],
+                "plan_revision_id": plan["revision_id"],
+                "approval_hash": plan["approval_hash"],
+                "state": "succeeded",
+                "attempted_at": effect["effective_at"],
+                "effect_event_id": effect["id"],
+            }
+        )
+        campaign["counts"].update({"queued": 0, "attempted": 1, "succeeded": 1})
+        write_json(campaign_path, campaign)
+
+        codes = {item["code"] for item in self.report()["errors"]}
+        self.assertIn("event.submission_receipt_not_provider_acknowledgement", codes)
+
+        receipt = read_template("evidence-receipt.example.json")
+        receipt["source"].update(
+            {
+                "kind": "email",
+                "locator": "mailbox:submission-receipt-42",
+                "provider_id": "example-mail",
+                "external_id": "submission-receipt-42",
+            }
+        )
+        receipt["source"].pop("actor", None)
+        receipt["selector"] = "message:submission-confirmation"
+        receipt["summary"] = "The provider acknowledged the application submission."
+        write_jsonl(self.root / "evidence.jsonl", [receipt])
+
+        report = self.report()
+        self.assertTrue(report["valid"], report)
+        records, _ = core.load_workspace(self.root)
+        projection = core.current_projection(records)
+        self.assertEqual(1, projection["metrics"]["ever_reached"]["application_submitted"])
+        opportunity = projection["opportunities"][0]
+        self.assertIn("application_submitted", opportunity["ever_reached"])
+        self.assertEqual(
+            "provider_acknowledged", opportunity["submission_verification"]["basis"]
+        )
+
+        submitted = copy.deepcopy(first)
+        submitted.update(
+            {
+                "id": "event-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+                "previous_event_id": effect["id"],
+                "recorded_at": "2026-08-13T10:04:50Z",
+                "effective_at": "2026-08-13T10:04:50Z",
+                "type": "application_submitted",
+                "status_before": "applied",
+                "status_after": "applied",
+            }
+        )
+        write_jsonl(self.root / "pipeline-events.jsonl", [first, effect, submitted])
+        campaign["workspace_tail"]["pipeline_tail_event_ids"] = [submitted["id"]]
+        write_json(campaign_path, campaign)
+        report = self.report()
+        self.assertTrue(report["valid"], report)
+        records, _ = core.load_workspace(self.root)
+        projection = core.current_projection(records)
+        self.assertEqual(1, projection["metrics"]["ever_reached"]["application_submitted"])
+        self.assertEqual(
+            "provider_acknowledged",
+            projection["opportunities"][0]["submission_verification"]["basis"],
+        )
+
     def test_as_of_projection_ignores_future_and_tolerates_expired_history(self):
         self.approve_plan()
         before_plan = self.report(as_of=core.parse_time("2026-08-13T10:03:00Z"))

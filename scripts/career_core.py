@@ -2302,6 +2302,12 @@ def validate_cross_records(
     evidence_ids = {
         item.value.get("id") for item in evidence_records if isinstance(item.value.get("id"), str)
     }
+    evidence_source_kind = {
+        item.value["id"]: item.value.get("source", {}).get("kind")
+        for item in evidence_records
+        if isinstance(item.value.get("id"), str)
+        and isinstance(item.value.get("source"), dict)
+    }
     evidence_times = captured_time_by_evidence(evidence_records)
     opportunity_ids = {
         item.value.get("opportunity_id")
@@ -2835,6 +2841,23 @@ def validate_cross_records(
                 "event.plan_opportunity_mismatch",
                 "$.opportunity_id",
                 "execution event and referenced plan must belong to the same opportunity",
+            )
+        effect = plan.value.get("effect")
+        provider_receipt = effect_result.get("provider_receipt")
+        if (
+            effect_result.get("outcome") == "succeeded"
+            and isinstance(effect, dict)
+            and effect.get("action") == "submit_application"
+            and provider_receipt in evidence_ids
+            and evidence_source_kind.get(provider_receipt) not in {"provider_record", "email"}
+        ):
+            diag(
+                diagnostics,
+                record,
+                "error",
+                "event.submission_receipt_not_provider_acknowledgement",
+                "$.effect_result.provider_receipt",
+                "a succeeded submit_application effect requires provider_record or email evidence",
             )
         execution_time = parse_time(record.value.get("effective_at"))
         plan_id = plan.value.get("plan_id")
@@ -3473,6 +3496,7 @@ def current_projection(
     artifact_tail: dict[str, dict[str, Any]] = {}
     action_tail: dict[str, dict[str, Any]] = {}
     campaign_tail: dict[str, dict[str, Any]] = {}
+    plan_action_by_revision: dict[str, str] = {}
     for record in records:
         value = record.value
         recorded = parse_time(value.get("recorded_at"))
@@ -3495,6 +3519,24 @@ def current_projection(
             action_tail[value["action_id"]] = value
         elif value.get("schema") == CAMPAIGN_SCHEMA and isinstance(value.get("campaign_id"), str):
             campaign_tail[value["campaign_id"]] = value
+        elif value.get("schema") == PLAN_SCHEMA and isinstance(value.get("revision_id"), str):
+            effect = value.get("effect")
+            if isinstance(effect, dict) and isinstance(effect.get("action"), str):
+                plan_action_by_revision[value["revision_id"]] = effect["action"]
+
+    def is_acknowledged_submission(event: dict[str, Any]) -> bool:
+        effect_result = event.get("effect_result")
+        if not isinstance(effect_result, dict):
+            return False
+        provider_receipt = effect_result.get("provider_receipt")
+        return (
+            event.get("type") == "effect_executed"
+            and effect_result.get("outcome") == "succeeded"
+            and plan_action_by_revision.get(effect_result.get("plan_revision_id"))
+            == "submit_application"
+            and evidence_kind.get(provider_receipt) in {"provider_record", "email"}
+        )
+
     facts_by_key: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
     for value in fact_tail.values():
         if value.get("operation") == "assert":
@@ -3532,11 +3574,16 @@ def current_projection(
     for opportunity_id, opportunity in sorted(opportunity_tail.items()):
         event = event_tail.get(opportunity_id)
         history = event_history.get(opportunity_id, [])
+        provider_ack_events = [
+            history_event
+            for history_event in history
+            if is_acknowledged_submission(history_event)
+        ]
         for history_event in history:
             milestone_sets["discovered"].add(opportunity_id)
             event_type = history_event.get("type")
             stage = history_event.get("status_after")
-            if event_type == "application_submitted":
+            if event_type == "application_submitted" or is_acknowledged_submission(history_event):
                 milestone_sets["application_submitted"].add(opportunity_id)
             if stage == "screening":
                 milestone_sets["screening"].add(opportunity_id)
@@ -3545,7 +3592,8 @@ def current_projection(
             if event_type == "offer_received" or stage == "offer":
                 milestone_sets["offer"].add(opportunity_id)
         application_events = [item for item in history if item.get("type") == "application_submitted"]
-        submission = application_events[-1] if application_events else None
+        provider_ack_event = provider_ack_events[-1] if provider_ack_events else None
+        submission = application_events[-1] if application_events else provider_ack_event
         submission_evidence_ids = {
             evidence_id
             for evidence_id in (submission or {}).get("evidence_ids", [])
@@ -3555,22 +3603,6 @@ def current_projection(
             evidence_kind.get(evidence_id)
             for evidence_id in submission_evidence_ids
         }
-        provider_ack_event = None
-        for history_event in history:
-            effect_result = history_event.get("effect_result")
-            provider_receipt = (
-                effect_result.get("provider_receipt")
-                if isinstance(effect_result, dict)
-                else None
-            )
-            if (
-                history_event.get("type") == "effect_executed"
-                and isinstance(effect_result, dict)
-                and effect_result.get("outcome") == "succeeded"
-                and provider_receipt in submission_evidence_ids
-                and evidence_kind.get(provider_receipt) in {"provider_record", "email"}
-            ):
-                provider_ack_event = history_event
         if submission is None:
             verification_basis = None
         elif provider_ack_event is not None:
