@@ -7,8 +7,9 @@ and other Agent Skills consumers.
 ## Repository Role
 
 - This repository owns the plugin source and releases.
-- `https://github.com/Xopoko/plug-n-skills` may index and install a pinned
-  version, but must not maintain a second editable copy.
+- Public metadata, installation, support, and provenance must point only to
+  this standalone repository. Private build environments may pin immutable
+  revisions without becoming public dependencies.
 - Runtime career data is private user state and never belongs in this tree.
 
 ## Shape
@@ -19,10 +20,8 @@ and other Agent Skills consumers.
 - `scripts/` contains deterministic, network-free helpers.
 - `tests/` contains `unittest` coverage and synthetic fixtures.
 - `.codex-plugin/` and `.claude-plugin/` are aligned package manifests.
-- The Codex manifest publishes
-  `interface.websiteURL: https://github.com/Xopoko/plug-n-skills` as the
-  catalog landing page while `homepage` and `repository` remain bound to
-  this standalone source.
+- The Codex manifest keeps `interface.websiteURL`, `homepage`, and `repository`
+  bound to this standalone source.
 
 ## Authoring Rules
 

@@ -100,16 +100,6 @@ confirm that **Career Skills** is present. If the skills appear but shared
 references cannot be opened, remove the partial copy and reinstall the complete
 repository at the path above.
 
-## Plug'n Skills
-
-[Plug'n Skills](https://github.com/Xopoko/plug-n-skills) can install a reviewed,
-immutable Career Skills revision through its Codex installer. Select `career`
-when using that installer. The reviewed pin may intentionally lag this
-repository while a new revision is audited.
-
-Use this standalone repository when you want the newest Career Skills source.
-Use the aggregator when you want one installer and a reviewed set of plugins.
-
 ## Validate a Checkout
 
 From the repository root, run:

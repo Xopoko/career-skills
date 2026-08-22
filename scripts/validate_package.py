@@ -149,10 +149,10 @@ def main() -> int:
         if (
             not isinstance(interface, dict)
             or interface.get("websiteURL")
-            != "https://github.com/Xopoko/plug-n-skills"
+            != "https://github.com/Xopoko/career-skills"
         ):
             errors.append(
-                "Codex manifest website must point to the Plug'n Skills catalog"
+                "Codex manifest website must point to the standalone source"
             )
 
     cursor_manifest = None

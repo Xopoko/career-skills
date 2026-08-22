@@ -39,14 +39,14 @@ class PackageValidationTest(unittest.TestCase):
         self.assertEqual(1, result.returncode, result.stdout)
         self.assertIn(".cursor-plugin/plugin.json", result.stdout)
 
-    def test_codex_website_must_point_to_catalog(self):
+    def test_codex_website_must_point_to_standalone_source(self):
         path = self.copy / ".codex-plugin" / "plugin.json"
         value = json.loads(path.read_text(encoding="utf-8"))
         value["interface"].pop("websiteURL")
         path.write_text(json.dumps(value) + "\n", encoding="utf-8")
         result = self.validate()
         self.assertEqual(1, result.returncode, result.stdout)
-        self.assertIn("website must point to the Plug'n Skills catalog", result.stdout)
+        self.assertIn("website must point to the standalone source", result.stdout)
 
     def test_cursor_wildcard_is_rejected(self):
         path = self.copy / ".cursor-plugin" / "plugin.json"
