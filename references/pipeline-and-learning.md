@@ -55,6 +55,12 @@ Keep separate:
 Counts do not explain causes. Small samples and selection effects make rates
 unstable. Never present a conversion change as causal without evidence.
 
+Compute stage reach from the full event history: a later rejection, withdrawal,
+or closed tail does not erase an earlier screen, interview, or offer. Every rate
+must name its population and denominator. A rejection rate excludes withdrawals,
+offer declines, and unresolved applications unless a differently named metric
+explicitly defines another population; report those dispositions separately.
+
 ## Retrospective
 
 At a bounded cadence:

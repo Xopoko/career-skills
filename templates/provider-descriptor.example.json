@@ -2,6 +2,7 @@
   "schema": "career.provider_descriptor.v1",
   "provider_id": "example-jobs",
   "adapter_version": "0.1.0",
+  "maintainer": "review-required",
   "source_revision": "full-immutable-revision-required",
   "license": {
     "code": "review-required",
@@ -15,6 +16,7 @@
   "network_destinations": [
     "https://example.org"
   ],
+  "redirect_policy": "same-origin-only",
   "operations": [
     {
       "name": "search",
@@ -38,9 +40,20 @@
     "partial_results_visible": true
   },
   "rate_limits": "unknown",
+  "quota_and_credits": "unknown",
   "cost": "none_observed",
   "attribution": "review-required",
-  "cache_and_retention": "local policy required",
-  "retry_and_idempotency": "reads only in this example",
+  "cache_and_retention": "local policy required, including deletion behavior",
+  "failure_semantics": "errors and partial-result coverage are preserved",
+  "retry_and_idempotency": {
+    "read": {
+      "mode": "none",
+      "max_attempts": 1
+    },
+    "write": {
+      "mode": "not_applicable"
+    },
+    "ambiguous_write": "not_applicable"
+  },
   "activation": "disabled"
 }

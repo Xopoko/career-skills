@@ -19,6 +19,17 @@ if SPEC is None or SPEC.loader is None:
 CORE = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = CORE
 SPEC.loader.exec_module(CORE)
+sys.modules["career_core"] = CORE
+
+PROVIDER_DESCRIPTOR_PATH = ROOT / "scripts" / "provider_descriptor.py"
+PROVIDER_DESCRIPTOR_SPEC = importlib.util.spec_from_file_location(
+    "provider_descriptor_validation", PROVIDER_DESCRIPTOR_PATH
+)
+if PROVIDER_DESCRIPTOR_SPEC is None or PROVIDER_DESCRIPTOR_SPEC.loader is None:
+    raise RuntimeError("unable to load provider_descriptor.py")
+PROVIDER_DESCRIPTOR = importlib.util.module_from_spec(PROVIDER_DESCRIPTOR_SPEC)
+sys.modules[PROVIDER_DESCRIPTOR_SPEC.name] = PROVIDER_DESCRIPTOR
+PROVIDER_DESCRIPTOR_SPEC.loader.exec_module(PROVIDER_DESCRIPTOR)
 
 ABSOLUTE_WINDOWS = re.compile(
     "(?:[a-z]" + ":" + re.escape("\\") + "|c:/" + "users/|e:/" + "projects/)",
@@ -266,19 +277,27 @@ def main() -> int:
     if trigger_result.returncode != 0:
         errors.append(f"trigger fixture validation failed: {trigger_result.stdout or trigger_result.stderr}")
 
-    template_count = 0
+    core_template_count = 0
+    provider_template_count = 0
     for path in sorted((ROOT / "templates").glob("*.json")):
         try:
             value = read_json(path)
         except (OSError, ValueError, json.JSONDecodeError) as exc:
             errors.append(f"{path.relative_to(ROOT).as_posix()}: {exc}")
             continue
-        if value.get("schema") not in CORE.CORE_SCHEMAS:
+        schema = value.get("schema")
+        if schema == PROVIDER_DESCRIPTOR.SCHEMA:
+            provider_template_count += 1
+            record = CORE.LoadedRecord(value, path.relative_to(ROOT).as_posix(), 1)
+            diagnostics = []
+            PROVIDER_DESCRIPTOR.validate_descriptor(record, diagnostics)
+        elif schema in CORE.CORE_SCHEMAS:
+            core_template_count += 1
+            record = CORE.LoadedRecord(value, path.relative_to(ROOT).as_posix(), 1)
+            diagnostics = []
+            CORE.validate_record_structure(record, diagnostics)
+        else:
             continue
-        template_count += 1
-        record = CORE.LoadedRecord(value, path.relative_to(ROOT).as_posix(), 1)
-        diagnostics = []
-        CORE.validate_record_structure(record, diagnostics)
         errors.extend(
             f"{item.file}:{item.json_path}: {item.code}: {item.message}"
             for item in diagnostics
@@ -312,7 +331,9 @@ def main() -> int:
         "valid": not errors,
         "counts": {
             "skills": len(skill_names),
-            "core_templates": template_count,
+            "validated_templates": core_template_count + provider_template_count,
+            "core_templates": core_template_count,
+            "provider_templates": provider_template_count,
             "errors": len(errors),
             "warnings": len(warnings),
         },

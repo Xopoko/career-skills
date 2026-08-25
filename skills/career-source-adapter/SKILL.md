@@ -47,7 +47,12 @@ State:
 9. Test synthetic fixtures with execution disabled, including failures and
    ambiguous results.
 10. Document install, enable, credential, disable, update, and removal paths.
-11. Validate the adapter, then request a separate activation decision.
+11. Validate the descriptor with the deterministic helper, then request a
+    separate activation decision.
+
+```bash
+python3 "$PLUGIN_ROOT/scripts/provider_descriptor.py" validate path/to/provider-descriptor.json --json
+```
 
 ## Rejection Conditions
 

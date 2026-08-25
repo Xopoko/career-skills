@@ -30,7 +30,11 @@ the next decision or application.
 7. Avoid tables, graphics, headers, or parsing-sensitive layouts when the
    destination requires a simple machine-readable resume.
 8. Render and inspect the final document when output format matters.
-9. Build and validate a claim manifest.
+9. For PDF, independently extract and inspect the machine-readable text layer.
+   Request UTF-8 output where supported, then check reading order, literal
+   contact fields and dates, missing text, and replacement glyphs. If extraction
+   is unavailable, record degraded QA rather than a pass.
+10. Build and validate a claim manifest.
 
 Do not optimize to an invented ATS score, force keyword density, or add a skill
 because the posting mentions it.

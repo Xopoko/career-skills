@@ -32,17 +32,24 @@ Load or confirm:
    postings or bounded web research; do not invent a connector.
 3. Record provider, query, retrieval time, pagination, truncation, failures, and
    unsearched sources.
-4. Preserve each raw record through an evidence receipt.
-5. Normalize title, organization, employment type, workplace, seniority,
+4. Preserve every raw discovery record through an evidence receipt.
+5. Normalize the available metadata before filtering, retaining raw values and
+   mapping warnings.
+6. Use metadata-only discovery only to reduce retrieval cost. Exclude a lead at
+   this stage only when an explicit normalized field proves a hard-constraint
+   failure; missing detail stays unknown. Fetch the full posting for every
+   remaining candidate and preserve either its receipt or the retrieval failure.
+   Failed hydration remains unresolved and must not be ranked as complete.
+7. Normalize title, organization, employment type, workplace, seniority,
    locations, compensation, dates, source URL, and canonical application URL.
    Keep unknowns and mapping warnings.
-6. Apply hard constraints before ranking.
-7. Detect exact provider identities, canonical-URL duplicates, and strong
+8. Apply hard constraints before ranking.
+9. Detect exact provider identities, canonical-URL duplicates, and strong
    title-organization candidates. Do not merge ambiguous entities automatically.
-8. Rank survivors with visible factors, weights, freshness, and missing data.
-9. Refresh finalists from a canonical source and mark removed, expired, or
+10. Rank survivors with visible factors, weights, freshness, and missing data.
+11. Refresh finalists from a canonical source and mark removed, expired, or
    unverifiable records.
-10. Present a small shortlist and route selected items to
+12. Present a small shortlist and route selected items to
     `opportunity-analysis`.
 
 ```bash
@@ -60,7 +67,7 @@ location, compensation, or a user-defined dealbreaker.
 
 Return:
 
-- query and source coverage;
+- query, source, and full-detail retrieval coverage;
 - hard-filter exclusions with reasons;
 - normalized shortlist with freshness and canonical links;
 - dedupe and mapping warnings;

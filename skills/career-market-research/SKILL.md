@@ -20,19 +20,22 @@ Read:
 1. State the question, geography, role family, work arrangement, timeframe, and
    freshness need.
 2. Identify which facts are live and must be verified now.
-3. Prefer canonical employer, government, regulator, taxonomy, filing, and
+3. Reuse dated receipts and known URLs only as discovery leads under a declared
+   freshness policy. Re-confirm every material employer claim before it shapes
+   a current decision, application artifact, or interview brief.
+4. Prefer canonical employer, government, regulator, taxonomy, filing, and
    current documentation sources; add independent evidence where it changes the
    decision.
-4. Record publication date, represented date, retrieval time, geography,
+5. Record publication date, represented date, retrieval time, geography,
    source type, and limitations.
-5. Separate source assertion, independent observation, inference, and unknown.
-6. Normalize compensation only after preserving raw amount, period, currency,
+6. Separate source assertion, independent observation, inference, and unknown.
+7. Normalize compensation only after preserving raw amount, period, currency,
    location, level, employment basis, and sample context.
-7. Preserve contradictions and missing coverage. Do not average incompatible
+8. Preserve contradictions and missing coverage. Do not average incompatible
    sources.
-8. For legal, tax, immigration, benefits, or labor-rights questions, use current
+9. For legal, tax, immigration, benefits, or labor-rights questions, use current
    authoritative sources and stop short of a legal conclusion.
-9. Translate findings into a decision implication, cheapest verification step,
+10. Translate findings into a decision implication, cheapest verification step,
    and any search-policy change.
 
 ## Employer Research

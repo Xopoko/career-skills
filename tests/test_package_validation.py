@@ -84,6 +84,17 @@ class PackageValidationTest(unittest.TestCase):
         self.assertEqual(1, result.returncode, result.stdout)
         self.assertIn("package.json version differs", result.stdout)
 
+    def test_provider_descriptor_is_counted_and_validated(self):
+        path = self.copy / "templates" / "provider-descriptor.example.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["operations"][0]["effect_class"] = "unknown_effect"
+        path.write_text(json.dumps(value) + "\n", encoding="utf-8")
+        result = self.validate()
+        payload = json.loads(result.stdout)
+        self.assertEqual(1, result.returncode, result.stdout)
+        self.assertEqual(1, payload["counts"]["provider_templates"])
+        self.assertIn("provider.effect_class", result.stdout)
+
     def replace_description(self, skill: str, description: str):
         path = self.copy / "skills" / skill / "SKILL.md"
         lines = path.read_text(encoding="utf-8").splitlines()

@@ -40,7 +40,11 @@ continue from an old role version when the posting changed materially.
 8. Create an exact claim manifest and validate it.
 9. Render the final output when the destination is PDF, word-processing, or a
    strict visual format.
-10. Record artifact hash, purpose, opportunity, source facts, and supersession.
+10. For PDF, inspect both rendered pages and the machine-readable text layer.
+    Request UTF-8 extraction where supported; check reading order, literal
+    contact fields and dates, and replacement glyphs. If extraction is not
+    available, record degraded QA instead of claiming the text layer passed.
+11. Record artifact hash, purpose, opportunity, source facts, and supersession.
 
 ```bash
 python3 "$PLUGIN_ROOT/scripts/career_core.py" validate-claims \
@@ -59,5 +63,5 @@ keyword repetition.
 ## Output
 
 Return the artifact, tailoring rationale, evidence map, gaps not disguised,
-claim-validation result, render result when applicable, and the exact next
-effect boundary. Route form mapping to `application-assistance`.
+claim-validation result, visual and text-layer results when applicable, and the
+exact next effect boundary. Route form mapping to `application-assistance`.

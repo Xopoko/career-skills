@@ -20,6 +20,15 @@ core = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = core
 SPEC.loader.exec_module(core)
 
+PROVIDER_DESCRIPTOR_PATH = PLUGIN_ROOT / "scripts" / "provider_descriptor.py"
+PROVIDER_DESCRIPTOR_SPEC = importlib.util.spec_from_file_location(
+    "provider_descriptor", PROVIDER_DESCRIPTOR_PATH
+)
+assert PROVIDER_DESCRIPTOR_SPEC and PROVIDER_DESCRIPTOR_SPEC.loader
+provider_descriptor = importlib.util.module_from_spec(PROVIDER_DESCRIPTOR_SPEC)
+sys.modules[PROVIDER_DESCRIPTOR_SPEC.name] = provider_descriptor
+PROVIDER_DESCRIPTOR_SPEC.loader.exec_module(provider_descriptor)
+
 
 def read_template(name):
     return json.loads(
@@ -149,6 +158,143 @@ class CareerCoreTest(unittest.TestCase):
         self.assertTrue(report["valid"], report)
         self.assertEqual(10, report["counts"]["records"])
         self.assertEqual(0, report["counts"]["errors"])
+
+    def provider_descriptor_report(self, descriptor):
+        return provider_descriptor.validate_value(
+            descriptor, source="provider-descriptor.json"
+        )
+
+    def test_shipped_provider_descriptor_is_valid(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        report = self.provider_descriptor_report(descriptor)
+        self.assertTrue(report["valid"], report)
+
+    def test_provider_descriptor_rejects_unknown_effect_class(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["operations"][0]["effect_class"] = "browse_everything"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertFalse(report["valid"])
+        self.assertIn("provider.effect_class", {item["code"] for item in report["errors"]})
+
+    def test_provider_descriptor_rejects_malformed_destinations_without_crashing(self):
+        invalid_destinations = [
+            "https://[::1",
+            "https://example.org:not-a-port/jobs",
+            "https://example.org:70000/jobs",
+            "https://bad host.example/jobs",
+            "https://user:password@example.org/jobs",
+        ]
+        for destination in invalid_destinations:
+            with self.subTest(destination=destination):
+                descriptor = read_template("provider-descriptor.example.json")
+                descriptor["network_destinations"] = [destination]
+                report = self.provider_descriptor_report(descriptor)
+                self.assertFalse(report["valid"])
+                self.assertIn(
+                    "provider.network_destination",
+                    {item["code"] for item in report["errors"]},
+                )
+
+    def test_provider_descriptor_requires_plan_execute_separation(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["operations"][0]["effect_class"] = "application_submission"
+        report = self.provider_descriptor_report(descriptor)
+        codes = {item["code"] for item in report["errors"]}
+        self.assertIn("provider.mutable_operation_unsplit", codes)
+        self.assertIn("provider.plan_execute_separation", codes)
+
+    def test_provider_descriptor_accepts_safely_split_mutation(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["operations"] = [
+            {
+                "name": "plan",
+                "effect_class": "local_write",
+                "data_sent": ["operation"],
+                "data_returned": ["immutable_preview"],
+            },
+            {
+                "name": "execute",
+                "effect_class": "application_submission",
+                "data_sent": ["approved_plan_id", "expected_hash"],
+                "data_returned": ["provider_acknowledgement"],
+            },
+        ]
+        descriptor["retry_and_idempotency"]["write"]["mode"] = "idempotency_key"
+        descriptor["retry_and_idempotency"]["ambiguous_write"] = "stop_and_reconcile"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertTrue(report["valid"], report)
+
+    def test_provider_descriptor_accepts_multiple_exact_mutation_pairs(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["operations"] = [
+            {
+                "name": "plan:send-message",
+                "effect_class": "local_write",
+                "data_sent": ["message"],
+                "data_returned": ["immutable_preview"],
+            },
+            {
+                "name": "execute:send-message",
+                "effect_class": "communication",
+                "data_sent": ["approved_plan_id", "expected_hash"],
+                "data_returned": ["provider_acknowledgement"],
+            },
+            {
+                "name": "plan:delete-record",
+                "effect_class": "local_write",
+                "data_sent": ["record_id"],
+                "data_returned": ["immutable_preview"],
+            },
+            {
+                "name": "execute:delete-record",
+                "effect_class": "delete",
+                "data_sent": ["approved_plan_id", "expected_hash"],
+                "data_returned": ["provider_acknowledgement"],
+            },
+        ]
+        descriptor["retry_and_idempotency"]["write"]["mode"] = "idempotency_key"
+        descriptor["retry_and_idempotency"]["ambiguous_write"] = "stop_and_reconcile"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertTrue(report["valid"], report)
+
+    def test_provider_descriptor_rejects_nonexact_mutation_pairs(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["operations"] = [
+            {
+                "name": "plan:send-message",
+                "effect_class": "local_write",
+                "data_sent": ["message"],
+                "data_returned": ["immutable_preview"],
+            },
+            {
+                "name": "execute:delete-record",
+                "effect_class": "communication",
+                "data_sent": ["approved_plan_id", "expected_hash"],
+                "data_returned": ["provider_acknowledgement"],
+            },
+        ]
+        descriptor["retry_and_idempotency"]["write"]["mode"] = "idempotency_key"
+        descriptor["retry_and_idempotency"]["ambiguous_write"] = "stop_and_reconcile"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertFalse(report["valid"])
+        self.assertIn(
+            "provider.plan_execute_separation",
+            {item["code"] for item in report["errors"]},
+        )
+
+    def test_provider_descriptor_must_remain_disabled(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["activation"] = "enabled"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertFalse(report["valid"])
+        self.assertIn("provider.activation", {item["code"] for item in report["errors"]})
+
+    def test_provider_descriptor_rejects_untyped_retry_contract(self):
+        descriptor = read_template("provider-descriptor.example.json")
+        descriptor["retry_and_idempotency"] = "retry if needed"
+        report = self.provider_descriptor_report(descriptor)
+        self.assertFalse(report["valid"])
+        self.assertIn("provider.retry_contract", {item["code"] for item in report["errors"]})
 
     def test_trigger_contract_covers_every_skill(self):
         output = io.StringIO()
@@ -874,6 +1020,52 @@ class CareerCoreTest(unittest.TestCase):
         self.assertEqual("screening", projection["opportunities"][0]["status"])
         self.assertEqual(1, projection["metrics"]["ever_reached"]["application_submitted"])
         self.assertEqual("user_reported", projection["opportunities"][0]["submission_verification"]["basis"])
+
+    def test_closed_rejection_preserves_ever_reached_interview(self):
+        first = read_template("pipeline-event.example.json")
+        applied = copy.deepcopy(first)
+        applied.update(
+            {
+                "id": "event-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+                "previous_event_id": first["id"],
+                "status_before": "discovered",
+                "status_after": "applied",
+                "type": "application_submitted",
+            }
+        )
+        interview = copy.deepcopy(first)
+        interview.update(
+            {
+                "id": "event-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+                "previous_event_id": applied["id"],
+                "status_before": "applied",
+                "status_after": "interviewing",
+                "type": "interview_scheduled",
+            }
+        )
+        closed = copy.deepcopy(first)
+        closed.update(
+            {
+                "id": "event-cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+                "previous_event_id": interview["id"],
+                "status_before": "interviewing",
+                "status_after": "closed",
+                "type": "outcome_recorded",
+                "outcome": {"kind": "rejected"},
+            }
+        )
+        write_jsonl(
+            self.root / "pipeline-events.jsonl", [first, applied, interview, closed]
+        )
+        report = self.report()
+        self.assertTrue(report["valid"], report)
+        records, _ = core.load_workspace(self.root)
+        projection = core.current_projection(records)
+        opportunity = projection["opportunities"][0]
+        self.assertEqual("closed", opportunity["status"])
+        self.assertIn("interviewing", opportunity["ever_reached"])
+        self.assertEqual(1, projection["metrics"]["ever_reached"]["interviewing"])
+        self.assertEqual(1, projection["metrics"]["terminal_outcomes"]["rejected"])
 
     def test_workspace_requires_profile_policy_and_artifact_index(self):
         (self.root / "profile.json").unlink()

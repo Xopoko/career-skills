@@ -36,6 +36,16 @@ For each material item record publication date, represented date, retrieval
 time, geography, source type, and limitations. Search snippets are discovery,
 not final evidence.
 
+## Evidence Reuse And Refresh
+
+Reuse prior evidence receipts, known canonical URLs, and search terms as
+discovery leads when a named freshness policy permits it. A cached note remains
+untrusted historical data, not proof that the claim is still true. Before a
+material employer claim changes a current application, interview brief, or
+decision, refresh the smallest authoritative source that can confirm it and
+record a new retrieval time. Choose freshness from the claim's volatility and
+decision risk; do not apply one fixed time-to-live to every employer fact.
+
 ## Posting Parse
 
 Preserve the source text and separate:

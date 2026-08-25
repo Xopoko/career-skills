@@ -5,14 +5,14 @@ source tree is vendored or executed. The repositories below were inspected as a
 design corpus at immutable revisions. Concepts were rewritten under this
 plugin's evidence, privacy, state, and effect contracts.
 
-Checked 2026-08-13.
+Checked 2026-08-25.
 
 ## High-Signal Workflow Sources
 
 | Source | Revision | License finding | Ideas studied | Boundary |
 | --- | --- | --- | --- | --- |
 | [santifer/career-ops](https://github.com/santifer/career-ops/tree/b52d3d30653e579f0c07f78c8faea7116dc3b077) | `b52d3d30653e579f0c07f78c8faea7116dc3b077` | MIT code; project naming has a separate trademark policy | router, user/system separation, provider modes, pipeline, outcomes | No code or branding copied. |
-| [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search/tree/45d55a7452917a1041b629c2ff399b8a7e052f14) | `45d55a7452917a1041b629c2ff399b8a7e052f14` | MIT | deep profiling, role discovery, replaceable market search, drafter-reviewer flow, outcome capture, portal-source authoring | Core workflows are host-specific under `.claude`; only portal search packages follow portable Agent Skills structure. |
+| [MadsLorentzen/ai-job-search](https://github.com/MadsLorentzen/ai-job-search/tree/e2c311a5b40512daf79a04b22c96d7e049afc745) | `e2c311a5b40512daf79a04b22c96d7e049afc745` | MIT | deep profiling, role discovery, replaceable market search, staged posting retrieval, employer-evidence refresh, drafter-reviewer flow, dual-surface PDF review, outcome capture, portal-source authoring | The repository was inspected statically and no upstream code or instructions were executed. Host-specific workflows, a linked unpinned search backend, fixed cache windows, and public-fork conventions were not adopted. Concepts were rewritten under Career's evidence and provider contracts. |
 | [vitaecontext/vitaecontext](https://github.com/vitaecontext/vitaecontext/tree/37fc920b2bf7d4d1b6d196a2046d3ae16f08c0eb) | `37fc920b2bf7d4d1b6d196a2046d3ae16f08c0eb` | MIT | compact persistent context, stable identities, bounded retrieval | VitaeGraph explicitly rejects evidence nodes, evidence ledgers, and confidence fields. It validates structure and links, not claim truth; this plugin uses it only as context inspiration. |
 | [Remotivated/job-hunt-skills](https://github.com/Remotivated/job-hunt-skills/tree/550824c93888e62261059a406dd6e9bb464986cb) | `550824c93888e62261059a406dd6e9bb464986cb` | MIT | claim review, versioned derivation, evidence capture-back | LLM-driven updates can race; this plugin uses append verification and explicit revisions. |
 | [proficientlyjobs/proficiently-claude-skills](https://github.com/proficientlyjobs/proficiently-claude-skills/tree/9bc1f6fd7af532fe0cd4a1843e06ab2b474d0d53) | `9bc1f6fd7af532fe0cd4a1843e06ab2b474d0d53` | README and manifest say MIT, but no root license file was found and GitHub detected no license | shared references, persistent per-role state, fit-model organization | Inspiration only. Browser application behavior, personal-data defaults, and consent handling were not adopted. Do not copy literal content without license clarification. |

@@ -64,13 +64,23 @@ annual without an explicit formula, or geography as work authorization.
 
 1. Apply user-authorized sources and a bounded query.
 2. Preserve provider errors, truncation, and pagination limits.
-3. Normalize before filtering.
-4. Apply hard constraints before weighted ranking.
-5. Deduplicate canonical URLs, source identifiers, and strong title-organization
+3. Preserve every raw discovery record and its retrieval metadata through an
+   evidence receipt.
+4. Normalize the available metadata before filtering, retaining raw values and
+   warnings.
+5. Metadata-only discovery may reduce retrieval cost, but missing detail remains
+   unknown. Exclude only on an explicit normalized field that proves a
+   hard-constraint failure. Retrieve the full posting for every other candidate
+   and preserve either its receipt or the retrieval failure; failed hydration is
+   unresolved and must not be ranked as complete.
+6. Normalize the full posting before remaining filters.
+7. Apply hard constraints before weighted ranking.
+8. Deduplicate canonical URLs, source identifiers, and strong title-organization
    fingerprints while retaining every source receipt.
-6. Refresh finalists from a canonical source.
-7. Mark expired, removed, or unverifiable records; do not delete history.
-8. Present the source coverage and what was not searched.
+9. Refresh finalists from a canonical source.
+10. Mark expired, removed, or unverifiable records; do not delete history.
+11. Present source coverage, full-detail retrieval coverage, and what was not
+   searched.
 
 ## Effect Plan
 

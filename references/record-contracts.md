@@ -1,8 +1,8 @@
 # Versioned Record Contracts
 
-The Career core uses five versioned JSON contracts and strict JSONL ledgers.
-The Python helper is the executable contract; templates illustrate valid
-records but are not a substitute for validation.
+The frozen Career core validates workspace records and strict JSONL ledgers.
+Standalone review contracts name their own deterministic helpers. Templates
+illustrate valid records but are not a substitute for validation.
 
 ## Shared Encoding Rules
 
@@ -127,6 +127,36 @@ separate pipeline event with outcome `succeeded`, `failed`, `ambiguous`,
 `denied`, or `cancelled`. An ambiguous result must be reconciled before retry.
 Execution binds the latest plan revision recorded at that time, so later
 revocation or expiry is enforced without rewriting history.
+
+## `career.provider_descriptor.v1`
+
+Review-time contract for a replaceable provider. It records provider, maintainer,
+and source identity; license and service-data findings; authentication and secret
+boundary; network destinations and redirects; operations and effect classes;
+normalization-relevant freshness and pagination semantics; rate limits, quotas,
+costs, attribution, retention and deletion behavior; failure semantics; and a
+typed retry contract.
+
+Every operation declares data sent and returned. A single external mutable
+effect may use the distinct `plan` and `execute` operations. Multiple effects
+use exact `plan:<operation-id>` and `execute:<operation-id>` pairs, where the
+operation id is lowercase kebab-case. Every mutable execute requires its exact
+same-id plan whose `effect_class` is `local_write`; orphaned or misclassified
+pairs are invalid and do not authorize a broader effect. Network destinations
+must be absolute HTTP(S) or WebSocket URLs with a parseable host and port, no
+whitespace, and no embedded userinfo. Read retries are either disabled or
+bounded. Write retries are prohibited or require an idempotency key or
+remote-state check, and ambiguous writes stop for reconciliation. A review
+descriptor always has `activation: disabled`; enabling a provider is a separate
+decision and receipt, not a descriptor edit.
+
+`scripts/provider_descriptor.py` owns this review contract and reuses the
+frozen core's strict JSON and diagnostic helpers without adding the descriptor
+to the workspace schemas. Validate a descriptor with:
+
+```bash
+python3 "$PLUGIN_ROOT/scripts/provider_descriptor.py" validate path/to/provider-descriptor.json --json
+```
 
 ## Additional Workspace Records
 
