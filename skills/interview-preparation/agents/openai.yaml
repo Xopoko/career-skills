@@ -1,2 +1,5 @@
+interface:
+  display_name: "Interview Preparation"
+  short_description: "Interview Preparation: run focused tasks"
 policy:
   allow_implicit_invocation: false

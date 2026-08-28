@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Source Adapter"
+  short_description: "Career Source Adapter: run focused tasks"
 policy:
   allow_implicit_invocation: false

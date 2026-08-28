@@ -1,2 +1,5 @@
+interface:
+  display_name: "Offer Negotiation"
+  short_description: "Offer Negotiation: run focused tasks"
 policy:
   allow_implicit_invocation: false

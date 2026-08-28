@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Market Research"
+  short_description: "Career Market Research: run focused tasks"
 policy:
   allow_implicit_invocation: false

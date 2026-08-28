@@ -1,2 +1,5 @@
+interface:
+  display_name: "Recruiter Coordination"
+  short_description: "Recruiter Coordination: run focused tasks"
 policy:
   allow_implicit_invocation: false

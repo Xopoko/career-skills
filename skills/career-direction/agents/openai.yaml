@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Direction"
+  short_description: "Career Direction: run focused tasks"
 policy:
   allow_implicit_invocation: false

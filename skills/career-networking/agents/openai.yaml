@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Networking"
+  short_description: "Career Networking: run focused tasks"
 policy:
   allow_implicit_invocation: false

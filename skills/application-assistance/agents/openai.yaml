@@ -1,2 +1,5 @@
+interface:
+  display_name: "Application Assistance"
+  short_description: "Application Assistance: run focused tasks"
 policy:
   allow_implicit_invocation: false

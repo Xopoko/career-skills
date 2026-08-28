@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Data Governance"
+  short_description: "Career Data Governance: run focused tasks"
 policy:
   allow_implicit_invocation: false

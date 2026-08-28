@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Context"
+  short_description: "Career Context: run focused tasks"
 policy:
   allow_implicit_invocation: false

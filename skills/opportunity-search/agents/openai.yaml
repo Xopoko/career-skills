@@ -1,2 +1,5 @@
+interface:
+  display_name: "Opportunity Search"
+  short_description: "Opportunity Search: run focused tasks"
 policy:
   allow_implicit_invocation: false

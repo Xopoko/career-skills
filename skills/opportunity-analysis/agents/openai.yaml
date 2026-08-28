@@ -1,2 +1,5 @@
+interface:
+  display_name: "Opportunity Analysis"
+  short_description: "Opportunity Analysis: run focused tasks"
 policy:
   allow_implicit_invocation: false

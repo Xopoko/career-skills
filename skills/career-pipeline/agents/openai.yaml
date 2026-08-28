@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Pipeline"
+  short_description: "Career Pipeline: run focused tasks"
 policy:
   allow_implicit_invocation: false

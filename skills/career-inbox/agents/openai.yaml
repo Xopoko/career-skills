@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Inbox"
+  short_description: "Career Inbox: run focused tasks"
 policy:
   allow_implicit_invocation: false

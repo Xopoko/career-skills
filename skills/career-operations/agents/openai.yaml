@@ -1,2 +1,5 @@
+interface:
+  display_name: "Career Operations"
+  short_description: "Career Operations: run focused tasks"
 policy:
   allow_implicit_invocation: false
