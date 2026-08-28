@@ -267,6 +267,28 @@ def main() -> int:
         if isinstance(name, str):
             skill_names.add(name)
 
+        agent_manifest = path.parent / "agents" / "openai.yaml"
+        expected_policy = (
+            "  allow_implicit_invocation: true"
+            if path.parent.name == "career"
+            else "  allow_implicit_invocation: false"
+        )
+        try:
+            agent_lines = agent_manifest.read_text(encoding="utf-8").splitlines()
+        except OSError as exc:
+            errors.append(f"{agent_manifest.relative_to(ROOT).as_posix()}: {exc}")
+        else:
+            policy_lines = [
+                line
+                for line in agent_lines
+                if "allow_implicit_invocation:" in line
+            ]
+            if "policy:" not in agent_lines or policy_lines != [expected_policy]:
+                errors.append(
+                    f"{agent_manifest.relative_to(ROOT).as_posix()}: "
+                    "only the career router may be implicitly invoked in Codex"
+                )
+
     trigger_result = subprocess.run(
         [sys.executable, str(CORE_PATH), "check-triggers"],
         cwd=ROOT,

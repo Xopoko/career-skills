@@ -3,3 +3,5 @@ interface:
   short_description: "Route evidence-first career work end to end"
   default_prompt: "Help me choose and complete the next career step using supported facts, visible uncertainty, and approval-gated external actions."
   brand_color: "#001A3F"
+policy:
+  allow_implicit_invocation: true
